@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오너프랜즈 | 혼자서도 본사처럼</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --orange: #F97316;
+            --orange-dark: #EA580C;
+            --orange-glow: rgba(249, 115, 22, 0.25);
+            --bg-base: #0D0D0D;
+            --bg-card: #161616;
+            --bg-card2: #1E1E1E;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #F5F5F5;
+            --text-sub: #9CA3AF;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            overflow-x: hidden;
+            word-break: keep-all;
+            background: var(--bg-base);
+            color: var(--text-main);
+        }
+
+        /* 섹션 배경 오버라이드 */
+        .bg-gray-50,
+        .bg-white {
+            background: var(--bg-card) !important;
+            color: var(--text-main) !important;
+        }
+
+        .bg-gray-100 {
+            background: var(--bg-card2) !important;
+        }
+
+        .bg-gray-900,
+        .bg-gray-800 {
+            background: #0A0A0A !important;
+        }
+
+        .text-gray-900,
+        .text-gray-800,
+        .text-gray-700,
+        .text-gray-600 {
+            color: var(--text-sub) !important;
+        }
+
+        .text-gray-500 {
+            color: #6B7280 !important;
+        }
+
+        .border,
+        .border-gray-200,
+        .border-gray-100 {
+            border-color: var(--border) !important;
+        }
+
+        .shadow-sm,
+        .shadow-xl,
+        .shadow-2xl {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* 오렌지 포인트 */
+        .bg-purple-600,
+        .bg-purple-700 {
+            background: var(--orange) !important;
+        }
+
+        .bg-purple-900 {
+            background: #1a0e00 !important;
+        }
+
+        .bg-purple-50 {
+            background: rgba(249, 115, 22, 0.08) !important;
+        }
+
+        .text-purple-600,
+        .text-purple-400,
+        .text-purple-300 {
+            color: var(--orange) !important;
+        }
+
+        .border-purple-600,
+        .border-purple-200 {
+            border-color: var(--orange) !important;
+        }
+
+        .hover\:bg-purple-700:hover,
+        .hover\:bg-purple-500:hover {
+            background: var(--orange-dark) !important;
+        }
+
+        .from-purple-600 {
+            --tw-gradient-from: var(--orange) !important;
+        }
+
+        .to-blue-600 {
+            --tw-gradient-to: #92400e !important;
+        }
+
+        /* 카드 스타일 */
+        .rounded-2xl,
+        .rounded-xl {
+            background-clip: padding-box;
+        }
+
+        section.bg-white,
+        section.bg-gray-50 {
+            border-top: 1px solid var(--border);
+        }
+
+        /* 블루 계열 → 제거/다크 */
+        .bg-blue-50 {
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        .border-blue-200 {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .bg-green-50 {
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        .border-green-200 {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        /* 체크박스 오렌지 */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: var(--orange);
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: var(--orange);
+        }
+
+        /* 탭 */
+        .tab-btn {
+            color: var(--text-sub);
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            border-bottom: 3px solid var(--orange);
+            color: var(--orange);
+            font-weight: 800;
+        }
+
+        .tab-btn:hover {
+            color: var(--orange);
+        }
+
+        /* 탭 컨테이너 */
+        .flex.border-b {
+            border-color: var(--border) !important;
+            background: var(--bg-card) !important;
+        }
+
+        /* 서비스 아이템 hover */
+        .service-item:hover {
+            background: rgba(249, 115, 22, 0.06) !important;
+        }
+
+        /* 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal>div {
+            background: #1A1A1A !important;
+            border: 1px solid rgba(249, 115, 22, 0.2);
+        }
+
+        .modal h3 {
+            color: #F5F5F5 !important;
+        }
+
+        .modal p {
+            color: #9CA3AF !important;
+        }
+
+        /* 사이드바 */
+        .sticky-summary {
+            background: var(--bg-card2) !important;
+            border-color: var(--border) !important;
+        }
+
+        .lg\:bg-white {
+            background: var(--bg-card2) !important;
+        }
+
+        /* 슬라이더 */
+        .slider-btn {
+            background: var(--orange) !important;
+        }
+
+        .slider-btn:hover {
+            background: var(--orange-dark) !important;
+        }
+
+        .dot.active {
+            background: var(--orange) !important;
+        }
+
+        .dot {
+            background: #374151 !important;
+        }
+
+        .slide-caption {
+            color: #6B7280 !important;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1024px) {
+            .sticky-summary {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #1A1A1A !important;
+                border-top: 1px solid rgba(249, 115, 22, 0.3) !important;
+                padding: 1rem;
+                z-index: 50;
+                box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.8);
+                border-radius: 20px 20px 0 0;
+            }
+
+            .content-area {
+                padding-bottom: 180px;
+            }
+
+            .desktop-only {
+                display: none;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-up {
+            animation: fadeUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-100 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.4s;
+        }
+
+        /* 오렌지 글로우 버튼 */
+        .btn-orange {
+            background: var(--orange);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-orange:hover {
+            background: var(--orange-dark);
+            box-shadow: 0 0 24px var(--orange-glow);
+            transform: translateY(-1px);
+        }
+
+        /* 할맥 섹션 */
+        .halmaek-card {
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+
+        .halmaek-card:hover {
+            border-color: rgba(249, 115, 22, 0.4);
+            box-shadow: 0 0 20px var(--orange-glow);
+        }
+
+        /* 헤더 */
+        header {
+            background: rgba(13, 13, 13, 0.92) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid var(--border) !important;
+        }
+
+        /* 링크 컬러 */
+        a.text-purple-600 {
+            color: var(--orange) !important;
+        }
+
+        /* 총비용 */
+        #total-price {
+            color: var(--orange) !important;
+        }
+
+        /* 결제하기 버튼 hover */
+        button[onclick="checkout()"] {
+            background: var(--orange) !important;
+        }
+
+        button[onclick="checkout()"]:hover {
+            background: var(--orange-dark) !important;
+        }
+
+        /* 입력란 배경 */
+        #selected-items .flex {
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        /* 히어로 배경 */
+        .hero-section {
+            background: linear-gradient(160deg, #0D0D0D 0%, #1a0e00 50%, #0D0D0D 100%) !important;
+        }
+
+        /* OR 배지 */
+        .badge-orange {
+            display: inline-block;
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--orange);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        /* 푸터 */
+        footer {
+            background: #080808;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40"
+        style="background:rgba(13,13,13,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="#top" class="flex items-center gap-3" style="text-decoration:none;">
+                <img src="./friend-anti/images/logo_lettering.png" alt="오너프랜즈"
+                    style="height:52px;width:auto;filter:brightness(1.05);">
+            </a>
+            <nav style="display:flex;align-items:center;gap:20px;">
+                <a href="./index.html"
+                    style="color:#9CA3AF;font-size:0.87rem;font-weight:600;text-decoration:none;transition:color 0.2s;"
+                    onmouseover="this.style.color='#F5F5F5'" onmouseout="this.style.color='#9CA3AF'">Home</a>
+                <a href="./vision.html"
+                    style="color:#9CA3AF;font-size:0.87rem;font-weight:600;text-decoration:none;transition:color 0.2s;"
+                    onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#9CA3AF'">Vision</a>
+                <a href="./team.html"
+                    style="color:#9CA3AF;font-size:0.87rem;font-weight:600;text-decoration:none;transition:color 0.2s;"
+                    onmouseover="this.style.color='#F5F5F5'" onmouseout="this.style.color='#9CA3AF'">Team</a>
+                <a href="#services"
+                    style="background:var(--orange);color:white;font-weight:700;padding:8px 20px;border-radius:100px;font-size:0.85rem;text-decoration:none;transition:all 0.2s;"
+                    onmouseover="this.style.background='#EA580C';this.style.boxShadow='0 0 20px rgba(249,115,22,0.4)';"
+                    onmouseout="this.style.background='#F97316';this.style.boxShadow='none';">서비스 둘러보기 →</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="top"></div>
+    <!-- Hero -->
+    <section class="relative text-white py-28 px-4 overflow-hidden"
+        style="background:linear-gradient(160deg,#0D0D0D 0%,#1a0900 45%,#0D0D0D 100%);">
+        <div
+            style="position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(249,115,22,0.12) 0%,transparent 70%);pointer-events:none;">
+        </div>
+        <div
+            style="position:absolute;bottom:-80px;left:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(249,115,22,0.07) 0%,transparent 70%);pointer-events:none;">
+        </div>
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <span class="badge-orange" style="display:inline-block;margin-bottom:24px;">혼자서도 본사처럼</span>
+            <h1 class="text-4xl md:text-6xl font-black leading-tight mb-8 animate-up" style="color:#F5F5F5;">
+                요리도, 마케팅도, 디자인도...<br>
+                <span style="color:#F97316;">다 혼자 하고 계시나요?</span>
+            </h1>
+            <p class="text-lg md:text-xl mb-10 leading-relaxed max-w-2xl mx-auto animate-up delay-100"
+                style="color:#9CA3AF;">
+                낮에는 재료 손질하고, 밤에는 메뉴판 만들고, 새벽엔 리뷰 답글 달고...<br>
+                <strong style="color:#F5F5F5;">프랜차이즈 본사처럼 시스템이 필요한 순간입니다.</strong>
+            </p>
+            <button onclick="document.getElementById('comparison').scrollIntoView({behavior:'smooth'})"
+                style="background:#F97316;color:white;font-weight:800;padding:16px 48px;border-radius:100px;font-size:18px;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 0 32px rgba(249,115,22,0.3);"
+                onmouseover="this.style.boxShadow='0 0 48px rgba(249,115,22,0.5)';this.style.transform='scale(1.04)';"
+                onmouseout="this.style.boxShadow='0 0 32px rgba(249,115,22,0.3)';this.style.transform='scale(1)';">
+                가상 본사 시스템 둘러보기 👇
+            </button>
+        </div>
+    </section>
+
+    <!-- Vision 배너 (콤팩트) -->
+    <section
+        style="background:#0A0A0A;padding:40px 16px;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div class="max-w-5xl mx-auto">
+            <div
+                style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;background:linear-gradient(135deg,rgba(249,115,22,0.1) 0%,rgba(234,88,12,0.05) 100%);border:1px solid rgba(249,115,22,0.25);border-radius:20px;padding:36px 40px;">
+                <div style="flex:1;min-width:240px;">
+                    <span class="badge-orange" style="display:inline-block;margin-bottom:12px;">Our Vision</span>
+                    <h2
+                        style="font-size:clamp(1.4rem,3vw,2.2rem);font-weight:900;color:#F5F5F5;line-height:1.2;margin-bottom:8px;">
+                        제2의 <span style="color:#F97316;">할맥</span>을 찾겠습니다
+                    </h2>
+                    <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.7;">
+                        역전할머니맥주(할맥) — 전북 익산역 앞 8평 맥줏집이<br>
+                        <strong style="color:#F5F5F5;">2016년 프랜차이즈 전환 후 단 6년 만에</strong><br>
+                        전국 800개 가맹점, 약 1,000억원에 Exit.
+                        <span style="display:inline-block;margin-top:4px;font-size:0.78rem;color:#6B7280;">(2022.05
+                            케이스톤파트너스 인수)</span>
+                    </p>
+                </div>
+                <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+                    <div style="display:grid;grid-template-columns:repeat(4,auto);gap:8px;align-items:center;">
+                        <div
+                            style="text-align:center;background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:12px;padding:10px 14px;">
+                            <div style="font-size:1.3rem;font-weight:900;color:#F97316;">8평</div>
+                            <div style="font-size:0.65rem;color:#6B7280;margin-top:2px;">1982년 시작</div>
+                        </div>
+                        <div style="color:#4B5563;font-size:1.2rem;text-align:center;">→</div>
+                        <div
+                            style="text-align:center;background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:12px;padding:10px 14px;">
+                            <div style="font-size:1.3rem;font-weight:900;color:#F97316;">800개</div>
+                            <div style="font-size:0.65rem;color:#6B7280;margin-top:2px;">2022년 가맹점</div>
+                        </div>
+                        <div style="color:#4B5563;font-size:1.2rem;text-align:center;">→</div>
+                        <div
+                            style="text-align:center;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.4);border-radius:12px;padding:10px 14px;grid-column:span 3;">
+                            <div style="font-size:1.3rem;font-weight:900;color:#F97316;">~1,000억 EXIT</div>
+                            <div style="font-size:0.65rem;color:#9CA3AF;margin-top:2px;">6년 만에 · 2022.05 케이스톤파트너스</div>
+                        </div>
+                    </div>
+                    <a href="./vision.html"
+                        style="background:#F97316;color:white;font-weight:700;padding:12px 24px;border-radius:100px;text-decoration:none;font-size:0.9rem;white-space:nowrap;transition:all 0.2s;"
+                        onmouseover="this.style.boxShadow='0 0 24px rgba(249,115,22,0.5)';this.style.transform='scale(1.04)';"
+                        onmouseout="this.style.boxShadow='none';this.style.transform='scale(1)';">스토리 보기 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section id="comparison" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 animate-up">
+                <h2 class="text-3xl font-bold mb-4">이것은 애초에 <span class="text-red-600">불공정한 게임</span>입니다</h2>
+                <p class="text-gray-500">사장님의 '노력' 부족이 아닙니다. '시스템'의 부재입니다.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div
+                    class="bg-gray-100 p-8 rounded-2xl border border-gray-200 relative overflow-hidden animate-up delay-100">
+                    <div class="absolute top-4 right-4 text-4xl opacity-20">🥵</div>
+                    <h3 class="text-xl font-bold mb-6 text-gray-700">나홀로 사장님의 현실</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fa-solid fa-xmark text-red-500 w-6"></i>
+                            <span>"디자인? 무료 툴 끄적이다 퀄리티 포기"</span>
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fa-solid fa-xmark text-red-500 w-6"></i>
+                            <span>"마케팅? 대행사 전화받고 돈만 날림"</span>
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fa-solid fa-xmark text-red-500 w-6"></i>
+                            <span>"악플? 멘탈 나가서 감정적으로 대응"</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-purple-900 text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden transform md:scale-105 z-10 animate-up delay-200">
+                    <div class="absolute top-4 right-4 text-4xl opacity-20">🏢</div>
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-check-circle text-purple-400"></i> 프랜차이즈 본사 시스템
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-gray-200">
+                            <i class="fa-solid fa-check text-purple-400 w-6"></i>
+                            <span>"본사 디자인팀이 시즌마다 포스터 발송"</span>
+                        </li>
+                        <li class="flex items-center text-gray-200">
+                            <i class="fa-solid fa-check text-purple-400 w-6"></i>
+                            <span>"마케팅팀이 알아서 인플루언서 섭외"</span>
+                        </li>
+                        <li class="flex items-center text-gray-200">
+                            <i class="fa-solid fa-check text-purple-400 w-6"></i>
+                            <span>"CS팀이 완벽한 리뷰 답변 가이드 제공"</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 사장님의 하루 -->
+    <section class="py-16 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-4">사장님의 하루</h2>
+            <p class="text-center text-gray-300 mb-12 text-lg">새벽부터 밤까지, 마케팅할 시간이 어디 있나요?</p>
+
+            <div class="space-y-4">
+                <div class="flex items-center gap-4 bg-white/10 backdrop-blur p-4 rounded-xl">
+                    <span class="text-3xl font-black text-purple-400">05:00</span>
+                    <div>
+                        <p class="font-bold">재료 손질 & 준비</p>
+                        <p class="text-sm text-gray-300">배달 온 식재료 검수, 하루 재료 준비</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 bg-white/10 backdrop-blur p-4 rounded-xl">
+                    <span class="text-3xl font-black text-purple-400">10:00</span>
+                    <div>
+                        <p class="font-bold">오픈 준비 & 손님 응대</p>
+                        <p class="text-sm text-gray-300">테이블 세팅, 주문받고 조리하고...</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 bg-white/10 backdrop-blur p-4 rounded-xl">
+                    <span class="text-3xl font-black text-purple-400">15:00</span>
+                    <div>
+                        <p class="font-bold">브레이크 타임?</p>
+                        <p class="text-sm text-gray-300">청소하고, 발주하고, 배달앱 리뷰 답글 달고...</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 bg-white/10 backdrop-blur p-4 rounded-xl">
+                    <span class="text-3xl font-black text-purple-400">18:00</span>
+                    <div>
+                        <p class="font-bold">저녁 피크타임</p>
+                        <p class="text-sm text-gray-300">주방 전쟁, 배달 포장, 홀 서빙 동시에...</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 bg-red-900/50 border-2 border-red-500 backdrop-blur p-4 rounded-xl">
+                    <span class="text-3xl font-black text-red-400">24:00</span>
+                    <div>
+                        <p class="font-bold">마감 정산 & 내일 준비</p>
+                        <p class="text-sm text-gray-300">엑셀 정리, 재고 확인, 인스타는 언제 올려...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <p class="text-2xl font-black mb-2">마케팅? 디자인? 인플루언서?</p>
+                <p class="text-xl text-purple-300">그럴 시간이 어디 있습니까.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 프랜차이즈는 왜 성공할까 -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-4">프랜차이즈는 왜 성공할까요?</h2>
+            <p class="text-center text-gray-600 mb-12 text-lg">답: <strong>본사 시스템</strong>이 있기 때문입니다</p>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-blue-50 p-6 rounded-2xl border-2 border-blue-200">
+                    <div class="text-4xl mb-4">🏢</div>
+                    <h3 class="font-black text-xl mb-2">마케팅 본부</h3>
+                    <p class="text-gray-700 text-sm mb-4">5명의 전문가가 네이버, 인스타, 유튜브를 24시간 관리합니다</p>
+                    <p class="text-xs text-gray-500">당신은? 밤 12시에 혼자 폰으로...</p>
+                </div>
+                <div class="bg-purple-50 p-6 rounded-2xl border-2 border-purple-200">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="font-black text-xl mb-2">디자인 팀</h3>
+                    <p class="text-gray-700 text-sm mb-4">3명의 디자이너가 메뉴판, 포스터, SNS 콘텐츠를 제작합니다</p>
+                    <p class="text-xs text-gray-500">당신은? 미리캔버스 무료 버전으로...</p>
+                </div>
+                <div class="bg-green-50 p-6 rounded-2xl border-2 border-green-200">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="font-black text-xl mb-2">운영 지원팀</h3>
+                    <p class="text-gray-700 text-sm mb-4">마진 분석, 재고 관리, 매출 예측 시스템을 자동으로 제공합니다</p>
+                    <p class="text-xs text-gray-500">당신은? 엑셀 수식 틀렸는지 밤새...</p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-8 rounded-2xl text-center">
+                <p class="text-2xl md:text-3xl font-black mb-2">프랜차이즈 본사 = 팀 15명의 시스템</p>
+                <p class="text-lg">오너프랜즈 = 그 시스템을 부품처럼 골라 쓰는 플랫폼</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 감정 후킹 -->
+    <section style="background:#0D0D0D;padding:64px 16px;border-top:1px solid rgba(255,255,255,0.06);">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2
+                style="font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:900;color:#F5F5F5;line-height:1.25;margin-bottom:20px;">
+                사장님께서 왜<br>
+                <span style="color:#9CA3AF;text-decoration:line-through;">마케터</span>
+                <span style="color:#9CA3AF;font-size:0.7em;"> + </span>
+                <span style="color:#9CA3AF;text-decoration:line-through;">디자이너</span>까지
+                되어야 하나요?
+            </h2>
+            <p style="font-size:1.15rem;color:#9CA3AF;margin-bottom:0;line-height:1.6;">
+                광고 전문가도, 콘텐츠 크리에이터도, 회계사도 되어야 하나요?
+            </p>
+        </div>
+    </section>
+
+    <!-- AS-IS vs TO-BE 업무 비교 -->
+    <section style="background:#0A0A0A;padding:80px 16px;border-top:1px solid rgba(255,255,255,0.06);">
+        <div class="max-w-6xl mx-auto">
+            <!-- 섹션 헤더 -->
+            <div class="text-center" style="margin-bottom:56px;">
+                <span class="badge-orange" style="display:inline-block;margin-bottom:16px;">Before &amp; After</span>
+                <h2 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:#F5F5F5;margin-bottom:12px;">오너프랜즈 전
+                    vs 후</h2>
+                <p style="color:#9CA3AF;font-size:1rem;">같은 하루 24시간, 무엇이 달라지는지 확인해보세요.</p>
+            </div>
+
+            <!-- 컬럼 헤더 -->
+            <div style="display:grid;grid-template-columns:1fr 56px 1fr;margin-bottom:4px;gap:3px;">
+                <div
+                    style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:14px 14px 0 0;padding:16px 24px;text-align:center;">
+                    <span style="font-size:0.7rem;font-weight:800;letter-spacing:0.1em;color:#F87171;">AS-IS</span>
+                    <p style="font-size:1rem;font-weight:800;color:#F5F5F5;margin-top:4px;">지금 혼자 하는 현실 😰</p>
+                </div>
+                <div></div>
+                <div
+                    style="background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.3);border-radius:14px 14px 0 0;padding:16px 24px;text-align:center;">
+                    <span style="font-size:0.7rem;font-weight:800;letter-spacing:0.1em;color:#F97316;">TO-BE</span>
+                    <p style="font-size:1rem;font-weight:800;color:#F5F5F5;margin-top:4px;">오너프랜즈와 함께 🔥</p>
+                </div>
+            </div>
+
+            <!-- 비교 행들 -->
+            <div style="display:flex;flex-direction:column;gap:3px;">
+
+                <!-- 디자인 -->
+                <div style="display:grid;grid-template-columns:1fr 56px 1fr;gap:3px;align-items:stretch;">
+                    <div style="background:#161616;border:1px solid rgba(239,68,68,0.15);padding:20px 24px;">
+                        <div
+                            style="font-size:0.68rem;color:#F87171;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            🎨 디자인</div>
+                        <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.6;">새벽 2시에 미리캔버스 켜고 혼자 끙끙 — 퀄리티는 포기, 소중한
+                            시간은 낭비</p>
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;justify-content:center;background:#0D0D0D;color:#F97316;font-size:1.3rem;">
+                        →</div>
+                    <div style="background:#1a1a1a;border:1px solid rgba(249,115,22,0.2);padding:20px 24px;">
+                        <div
+                            style="font-size:0.68rem;color:#F97316;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            ✅ 디자인팀이 대신</div>
+                        <p style="color:#D1D5DB;font-size:0.9rem;line-height:1.6;">메뉴판·포스터·패키지를 전문 디자이너가 제작 — 영업시간엔 요리에만
+                            집중</p>
+                    </div>
+                </div>
+
+                <!-- 마케팅 -->
+                <div style="display:grid;grid-template-columns:1fr 56px 1fr;gap:3px;align-items:stretch;">
+                    <div style="background:#161616;border:1px solid rgba(239,68,68,0.15);padding:20px 24px;">
+                        <div
+                            style="font-size:0.68rem;color:#F87171;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            📣 마케팅</div>
+                        <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.6;">대행사 전화받고 수백만 원 날리고 — 효과는 없고 어디서 뭘
+                            했는지도 모름</p>
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;justify-content:center;background:#0D0D0D;color:#F97316;font-size:1.3rem;">
+                        →</div>
+                    <div style="background:#1a1a1a;border:1px solid rgba(249,115,22,0.2);padding:20px 24px;">
+                        <div
+                            style="font-size:0.68rem;color:#F97316;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            ✅ 마케팅팀이 대신</div>
+                        <p style="color:#D1D5DB;font-size:0.9rem;line-height:1.6;">인플루언서 섭외·네이버 SEO·배달앱 최적화를 전담 팀이 운용 —
+                            결과 리포트까지</p>
+                    </div>
+                </div>
+
+                <!-- SNS 콘텐츠 -->
+                <div style="display:grid;grid-template-columns:1fr 56px 1fr;gap:3px;align-items:stretch;">
+                    <div style="background:#161616;border:1px solid rgba(239,68,68,0.15);padding:20px 24px;">
+                        <div
+                            style="font-size:0.68rem;color:#F87171;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            📱 SNS 콘텐츠</div>
+                        <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.6;">인스타에 뭘 올려야 할지 몰라 일주일째 공백 — 팔로워는 안 늘고
+                            리뷰는 무응답</p>
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;justify-content:center;background:#0D0D0D;color:#F97316;font-size:1.3rem;">
+                        →</div>
+                    <div style="background:#1a1a1a;border:1px solid rgba(249,115,22,0.2);padding:20px 24px;">
+                        <div
+                            style="font-size:0.68rem;color:#F97316;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            ✅ 콘텐츠팀이 대신</div>
+                        <p style="color:#D1D5DB;font-size:0.9rem;line-height:1.6;">숏폼 촬영·업로드·리뷰 답글을 팀이 대신 — 꾸준한 업로드로
+                            알고리즘 장악</p>
+                    </div>
+                </div>
+
+                <!-- 리뷰·CS -->
+                <div style="display:grid;grid-template-columns:1fr 56px 1fr;gap:3px;align-items:stretch;">
+                    <div style="background:#161616;border:1px solid rgba(239,68,68,0.15);padding:20px 24px;">
+                        <div
+                            style="font-size:0.68rem;color:#F87171;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            ⭐ 리뷰 &amp; CS</div>
+                        <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.6;">악플 하나에 멘탈이 흔들리고 감정적으로 대응 — 별점 테러는 나
+                            혼자 버텨야 함</p>
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;justify-content:center;background:#0D0D0D;color:#F97316;font-size:1.3rem;">
+                        →</div>
+                    <div style="background:#1a1a1a;border:1px solid rgba(249,115,22,0.2);padding:20px 24px;">
+                        <div
+                            style="font-size:0.68rem;color:#F97316;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            ✅ CS팀이 대신</div>
+                        <p style="color:#D1D5DB;font-size:0.9rem;line-height:1.6;">리뷰 모니터링·전문 답변 가이드·악성 리뷰 대응까지 — 사장님은
+                            주방에만 집중</p>
+                    </div>
+                </div>
+
+                <!-- 매출 분석 -->
+                <div style="display:grid;grid-template-columns:1fr 56px 1fr;gap:3px;align-items:stretch;">
+                    <div
+                        style="background:#161616;border:1px solid rgba(239,68,68,0.15);padding:20px 24px;border-radius:0 0 0 14px;">
+                        <div
+                            style="font-size:0.68rem;color:#F87171;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            📊 매출 &amp; 회계</div>
+                        <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.6;">엑셀 수식 틀렸는지 밤새 확인하고 — 수익이 왜 안 나는지 원인조차
+                            모름</p>
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;justify-content:center;background:#0D0D0D;color:#F97316;font-size:1.3rem;">
+                        →</div>
+                    <div
+                        style="background:#1a1a1a;border:1px solid rgba(249,115,22,0.2);padding:20px 24px;border-radius:0 0 14px 0;">
+                        <div
+                            style="font-size:0.68rem;color:#F97316;font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">
+                            ✅ 운영팀이 대신</div>
+                        <p style="color:#D1D5DB;font-size:0.9rem;line-height:1.6;">배달앱 수수료 비교·마진 자동 계산·메뉴별 수익률 분석 — 데이터
+                            기반 의사결정</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 결론 배너 -->
+            <div
+                style="margin-top:32px;background:linear-gradient(135deg,rgba(249,115,22,0.14) 0%,rgba(234,88,12,0.07) 100%);border:1px solid rgba(249,115,22,0.35);border-radius:20px;padding:40px;text-align:center;">
+                <p style="font-size:clamp(1.1rem,2.5vw,1.7rem);font-weight:900;color:#F5F5F5;margin-bottom:8px;">
+                    사장님은 <span style="color:#F97316;">요리</span>만 하세요.
+                </p>
+                <p style="font-size:1rem;color:#9CA3AF;margin-bottom:28px;">마케팅 · 디자인 · SNS · CS · 매출분석 — 나머지는 <strong
+                        style="color:#F5F5F5;">오너프랜즈</strong>가 대신합니다.</p>
+                <a href="#services"
+                    style="display:inline-block;background:#F97316;color:white;font-weight:700;padding:14px 36px;border-radius:100px;text-decoration:none;font-size:1rem;transition:all 0.2s;"
+                    onmouseover="this.style.boxShadow='0 0 32px rgba(249,115,22,0.5)';this.style.transform='scale(1.04)';"
+                    onmouseout="this.style.boxShadow='none';this.style.transform='scale(1)';">가상 본사 시스템 보기 →</a>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Services -->
+    <section id="services" class="py-16 content-area bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12 animate-up">
+                <span class="text-purple-600 font-bold tracking-widest text-sm uppercase mb-2 block">Build Your
+                    System</span>
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900">가상 본사를 조립하세요</h2>
+                <p class="text-gray-500 mt-2">체크하는 순간, 해당 부서가 사장님 가게로 출근합니다.</p>
+            </div>
+
+            <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+                <div class="lg:col-span-8">
+
+                    <!-- Tabs -->
+                    <div class="flex border-b mb-8 sticky top-16 bg-gray-50 z-30 pt-2">
+                        <button class="tab-btn active w-1/3 pb-4 text-center hover:text-purple-600 transition"
+                            onclick="switchTab('marketing')">
+                            <i class="fa-solid fa-bullhorn mb-1 block"></i>마케팅팀
+                        </button>
+                        <button class="tab-btn w-1/3 pb-4 text-center hover:text-purple-600 transition"
+                            onclick="switchTab('design')">
+                            <i class="fa-solid fa-palette mb-1 block"></i>디자인팀
+                        </button>
+                        <button class="tab-btn w-1/3 pb-4 text-center hover:text-purple-600 transition"
+                            onclick="switchTab('system')">
+                            <i class="fa-solid fa-gear mb-1 block"></i>운영팀
+                        </button>
+                    </div>
+
+                    <!-- Marketing Tab -->
+                    <div id="tab-marketing" class="space-y-6">
+
+                        <!-- Naver -->
+                        <section class="bg-white rounded-2xl p-6 shadow-sm border">
+                            <h2 class="text-lg font-bold mb-2 flex items-center" style="color: #03C75A;">
+                                <i class="fa-solid fa-n mr-2"></i> 네이버 플레이스 본부
+                            </h2>
+                            <p class="text-xs text-gray-400 mb-6">"검색해도 안 나오는 가게는, 세상에 없는 가게입니다."</p>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <h3 class="font-bold">SEO 검색 최적화 세팅</h3>
+                                        <span
+                                            class="bg-gray-800 text-white text-[10px] px-2 py-0.5 rounded font-bold">필수</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500">키워드 5개, 상세설명 알고리즘 맞춤</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">99,000원</span>
+                                    <input type="checkbox" data-price="99000" data-name="네이버 SEO"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">블로그 체험단 5팀 (자동 파견)</h3>
+                                    <p class="text-sm text-gray-500"><strong class="text-purple-600">사장님이 쪽지 안 보내도
+                                            됩니다.</strong> 동네 1등 블로거가 알아서 찾아갑니다.</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">149,000원</span>
+                                    <input type="checkbox" data-price="149000" data-name="블로그 체험단"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">키워드 광고 전문 세팅</h3>
+                                    <p class="text-sm text-gray-500">광고비 낭비 줄이는 AI 자동 입찰</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">55,000원</span>
+                                    <input type="checkbox" data-price="55000" data-name="키워드 광고"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">리뷰 답글 대행 (월 30건)</h3>
+                                    <p class="text-sm text-gray-500">악플도 매출로 바꾸는 전문 답변</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">49,000원</span>
+                                    <input type="checkbox" data-price="49000" data-name="리뷰 답글 대행"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Influencer -->
+                        <section class="bg-white rounded-2xl p-6 shadow-sm border">
+                            <h2 class="text-lg font-bold mb-2 flex items-center text-pink-600">
+                                <i class="fa-brands fa-instagram mr-2"></i> 인플루언서 자동 매칭
+                            </h2>
+                            <p class="text-xs text-gray-400 mb-6">"유명인 아는 사람 없어도 괜찮습니다."</p>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">마이크로 인플루언서 3명</h3>
+                                    <p class="text-sm text-gray-500">팔로워 1~3만, 지역 밀착형</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">220,000원</span>
+                                    <input type="checkbox" data-price="220000" data-name="마이크로 인플루언서"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <h3 class="font-bold">핫플 계정 홍보 (5만+)</h3>
+                                        <span
+                                            class="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">강력추천</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500">지역 맛집 페이지 게시물 업로드</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">350,000원</span>
+                                    <input type="checkbox" data-price="350000" data-name="핫플 계정"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">유튜버 먹방 촬영 (10만+)</h3>
+                                    <p class="text-sm text-gray-500">촬영/편집 몰라도 됩니다. 영상만 보내주세요.</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">550,000원</span>
+                                    <input type="checkbox" data-price="550000" data-name="유튜버 먹방"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">숏폼 영상 3편 제작</h3>
+                                    <p class="text-sm text-gray-500">15초 컷편집 + 트렌드 음악</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">180,000원</span>
+                                    <input type="checkbox" data-price="180000" data-name="숏폼 제작"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Delivery -->
+                        <section class="bg-white rounded-2xl p-6 shadow-sm border">
+                            <h2 class="text-lg font-bold mb-2 flex items-center text-orange-600">
+                                <i class="fa-solid fa-motorcycle mr-2"></i> 배달앱 최적화
+                            </h2>
+                            <p class="text-xs text-gray-400 mb-6">"배민/쿠팡이츠에서 노출 1위 찍으세요."</p>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">배달앱 배너 광고</h3>
+                                    <p class="text-sm text-gray-500">동네 주민에게만 노출</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">120,000원</span>
+                                    <input type="checkbox" data-price="120000" data-name="배달앱 배너"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">메뉴 최적화 컨설팅</h3>
+                                    <p class="text-sm text-gray-500">클릭률 높이는 메뉴명/이미지 전략</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">39,000원</span>
+                                    <input type="checkbox" data-price="39000" data-name="메뉴 최적화"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">쿠폰 전략 세팅</h3>
+                                    <p class="text-sm text-gray-500">재주문률 높이는 할인 설계</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <span class="font-bold">29,000원</span>
+                                    <input type="checkbox" data-price="29000" data-name="쿠폰 전략"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Design Tab -->
+                    <div id="tab-design" class="hidden space-y-6">
+                        <section class="bg-white rounded-2xl p-6 shadow-sm border">
+                            <h2 class="text-lg font-bold mb-2">브랜딩 디자인 팀</h2>
+                            <p class="text-xs text-gray-400 mb-6">"보기 좋은 떡이 비싸게 팔립니다."</p>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">매출 공학 메뉴판</h3>
+                                    <p class="text-sm text-gray-500">시선 유도 레이아웃 + 미끼상품 배치</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <button onclick="openModal('menu')"
+                                        class="text-purple-600 text-sm underline mr-2">예시보기</button>
+                                    <span class="font-bold">79,000원</span>
+                                    <input type="checkbox" data-price="79000" data-name="메뉴판"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">X-배너 디자인 (2종)</h3>
+                                    <p class="text-sm text-gray-500">점심/저녁용 후킹 문구 적용</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <button onclick="openModal('banner')"
+                                        class="text-purple-600 text-sm underline mr-2">예시보기</button>
+                                    <span class="font-bold">49,000원</span>
+                                    <input type="checkbox" data-price="49000" data-name="X-배너"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">로고 & 간판 시뮬레이션</h3>
+                                    <p class="text-sm text-gray-500">로고 3안 + 실제 간판 합성 이미지</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <button onclick="openModal('logo')"
+                                        class="text-purple-600 text-sm underline mr-2">예시보기</button>
+                                    <span class="font-bold">149,000원</span>
+                                    <input type="checkbox" data-price="149000" data-name="로고간판"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">포장 디자인 (봉투/스티커)</h3>
+                                    <p class="text-sm text-gray-500">브랜드 로고 인쇄용 디자인</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <button onclick="openModal('package')"
+                                        class="text-purple-600 text-sm underline mr-2">예시보기</button>
+                                    <span class="font-bold">79,000원</span>
+                                    <input type="checkbox" data-price="79000" data-name="포장디자인"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">푸드 전문 촬영</h3>
+                                    <p class="text-sm text-gray-500">메뉴 10개 고퀄리티 사진</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <button onclick="openModal('food')"
+                                        class="text-purple-600 text-sm underline mr-2">예시보기</button>
+                                    <span class="font-bold">299,000원</span>
+                                    <input type="checkbox" data-price="299000" data-name="푸드촬영"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- System Tab -->
+                    <div id="tab-system" class="hidden space-y-6">
+                        <section class="bg-white rounded-2xl p-6 shadow-sm border">
+                            <h2 class="text-lg font-bold mb-2">운영 지원 팀</h2>
+                            <p class="text-xs text-gray-400 mb-6">"사장님은 요리만 하세요. 잡일은 시스템이 합니다."</p>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">순수익 자동 계산기</h3>
+                                    <p class="text-sm text-gray-500">배달수수료, 재료비 자동 반영</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <a href="./tools/calculator.html" target="_blank"
+                                        class="text-purple-600 text-sm underline mr-2">샘플보기</a>
+                                    <span class="font-bold">29,000원</span>
+                                    <input type="checkbox" data-price="29000" data-name="계산기"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">방수 레시피 카드</h3>
+                                    <p class="text-sm text-gray-500">주방 이모님이 바뀌어도 맛 유지</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <a href="./tools/recipe-card.html" target="_blank"
+                                        class="text-purple-600 text-sm underline mr-2">샘플보기</a>
+                                    <span class="font-bold">39,000원</span>
+                                    <input type="checkbox" data-price="39000" data-name="레시피카드"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center mb-4 p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">근무표 자동 생성기</h3>
+                                    <p class="text-sm text-gray-500">직원 희망시간 자동 배정</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <a href="./tools/schedule.html" target="_blank"
+                                        class="text-purple-600 text-sm underline mr-2">샘플보기</a>
+                                    <span class="font-bold">29,000원</span>
+                                    <input type="checkbox" data-price="29000" data-name="근무표"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="service-item flex justify-between items-center p-2 hover:bg-gray-50 rounded-lg transition">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="font-bold">리뷰 답글 템플릿 50종</h3>
+                                    <p class="text-sm text-gray-500">좋은/나쁜/특수 상황별 답변</p>
+                                </div>
+                                <div class="text-right flex items-center gap-3">
+                                    <a href="./tools/review-templates.html" target="_blank"
+                                        class="text-purple-600 text-sm underline mr-2">샘플보기</a>
+                                    <span class="font-bold">19,000원</span>
+                                    <input type="checkbox" data-price="19000" data-name="리뷰템플릿"
+                                        class="toggle-checkbox w-12 h-6" />
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
+
+                <!-- Sidebar Summary -->
+                <div class="lg:col-span-4 mt-8 lg:mt-0">
+                    <div
+                        class="sticky-summary lg:bg-white lg:rounded-2xl lg:shadow-xl lg:border lg:p-6 lg:sticky lg:top-24">
+                        <div class="desktop-only mb-6 border-b pb-4">
+                            <h3 class="text-lg font-bold">나만의 본사 구축비용</h3>
+                            <p class="text-xs text-gray-400 mt-1">필요한 기능만 담으세요</p>
+                        </div>
+                        <div id="selected-items" class="desktop-only space-y-2 mb-6 min-h-[100px]">
+                            <p class="text-gray-400 text-xs text-center py-6">필요한 기능을 담아주세요</p>
+                        </div>
+                        <div class="flex lg:block items-center justify-between gap-4">
+                            <div class="lg:mb-6">
+                                <span class="text-xs text-gray-500 block mb-1">총 비용</span>
+                                <span class="text-3xl font-black text-purple-600" id="total-price">0원</span>
+                            </div>
+                            <button onclick="checkout()"
+                                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 lg:w-full rounded-xl shadow-lg transition">
+                                결제하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Slider CSS -->
+    <style>
+        .modal-slider {
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slider-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .slider-btn {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn:hover {
+            background: #6d28d9;
+        }
+
+        .slider-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d5db;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .dot.active {
+            background: #7c3aed;
+        }
+
+        .slide-caption {
+            font-size: 11px;
+            color: #9ca3af;
+            text-align: center;
+            margin-top: 6px;
+        }
+    </style>
+
+    <!-- Modals -->
+    <!-- 메뉴판 모달 -->
+    <div id="modal-menu" class="modal" onclick="closeModal('menu')">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl mx-4" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold mb-2">매출 공학 메뉴판 예시</h3>
+            <p class="text-gray-600 mb-4 text-sm">Z-law 시선 설계: 고객 눈은 왼쪽 상단 → 오른쪽 하단으로 이동합니다. 효자 메뉴를 전략적 위치에 배치하여 주문률을
+                높입니다.</p>
+            <div class="modal-slider" id="slider-menu">
+                <div class="slide active rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/menu_design.png" alt="한식 전문점 메뉴판" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 1 · 한식 전문점 — 대표메뉴 앞배치 + Z-법칙 레이아웃</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/menu_design_2.png" alt="고메 다이닝 메뉴" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 2 · 고메 다이닝 오마카세 — 프리미엄 블랙 골드 전지 메뉴</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/menu_design_3.png" alt="치킨집 메뉴판" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 3 · 치킨 전문점 — 섹션별 컬러 구분 + 사진 삽입형</p>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="slider-btn" onclick="changeSlide('menu', -1)">&#8592;</button>
+                <div class="slider-dots" id="dots-menu">
+                    <div class="dot active" onclick="goToSlide('menu', 0)"></div>
+                    <div class="dot" onclick="goToSlide('menu', 1)"></div>
+                    <div class="dot" onclick="goToSlide('menu', 2)"></div>
+                </div>
+                <button class="slider-btn" onclick="changeSlide('menu', 1)">&#8594;</button>
+            </div>
+            <p class="text-xs text-gray-400 mt-3 text-center">실제 납품 시 고해상도 인쇄용 AI 파일 제공 | 업종/컨셉 맞춤 제작</p>
+            <button onclick="closeModal('menu')"
+                class="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg w-full">닫기</button>
+        </div>
+    </div>
+
+    <!-- X배너 모달 -->
+    <div id="modal-banner" class="modal" onclick="closeModal('banner')">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl mx-4" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold mb-2">X-배너 디자인 예시</h3>
+            <p class="text-gray-600 mb-4 text-sm">점심/저녁/계절 이벤트 등 상황별 배너로 시간대별 매출을 극대화합니다. 실제 설치 현장 목업 포함.</p>
+            <div class="modal-slider" id="slider-banner">
+                <div class="slide active rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/banner_design.png" alt="점심/저녁 배너" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 1 · 점심특선 & 저녁세트 2종 세트 배너</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/banner_design_2.png" alt="계절 신메뉴 배너" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 2 · 계절 신메뉴 프로모션 배너 — 실내 설치 목업</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/banner_design_3.png" alt="카페 아침/디저트 배너" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 3 · 카페 모닝세트 & 디저트타임 2종 배너</p>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="slider-btn" onclick="changeSlide('banner', -1)">&#8592;</button>
+                <div class="slider-dots" id="dots-banner">
+                    <div class="dot active" onclick="goToSlide('banner', 0)"></div>
+                    <div class="dot" onclick="goToSlide('banner', 1)"></div>
+                    <div class="dot" onclick="goToSlide('banner', 2)"></div>
+                </div>
+                <button class="slider-btn" onclick="changeSlide('banner', 1)">&#8594;</button>
+            </div>
+            <p class="text-xs text-gray-400 mt-3 text-center">실제 인쇄 규격(600×1800mm) 맞춤 제작 | 2종 세트 구성</p>
+            <button onclick="closeModal('banner')"
+                class="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg w-full">닫기</button>
+        </div>
+    </div>
+
+    <!-- 로고 간판 모달 -->
+    <div id="modal-logo" class="modal" onclick="closeModal('logo')">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl mx-4" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold mb-2">로고 &amp; 간판 시뮬레이션 예시</h3>
+            <p class="text-gray-600 mb-4 text-sm">로고 3가지 안 제시 후 최종 선택 → 실제 가게 간판 합성으로 설치 전 검토 가능합니다.</p>
+            <div class="modal-slider" id="slider-logo">
+                <div class="slide active rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/logo_design.png" alt="로고 간판 시뮬레이션" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 1 · 한식당 로고 3안 + 실제 건물 간판 합성 시뮬레이션</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/logo_design_2.png" alt="로고 3종 포트폴리오" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 2 · 업종별 로고 포트폴리오 — 바베큐 / 분식 / 한방힐링</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/logo_design_3.png" alt="간판 낮밤 시뮬레이션" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 3 · 간판 설치 전 시뮬레이션 — 낮/야간 LED 점등 비교</p>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="slider-btn" onclick="changeSlide('logo', -1)">&#8592;</button>
+                <div class="slider-dots" id="dots-logo">
+                    <div class="dot active" onclick="goToSlide('logo', 0)"></div>
+                    <div class="dot" onclick="goToSlide('logo', 1)"></div>
+                    <div class="dot" onclick="goToSlide('logo', 2)"></div>
+                </div>
+                <button class="slider-btn" onclick="changeSlide('logo', 1)">&#8594;</button>
+            </div>
+            <p class="text-xs text-gray-400 mt-3 text-center">AI 파일(ai, pdf) + PNG 제공 | 수정 2회 포함 | 간판 합성 이미지 포함</p>
+            <button onclick="closeModal('logo')"
+                class="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg w-full">닫기</button>
+        </div>
+    </div>
+
+    <!-- 포장 디자인 모달 -->
+    <div id="modal-package" class="modal" onclick="closeModal('package')">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl mx-4" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold mb-2">포장 디자인 예시</h3>
+            <p class="text-gray-600 mb-4 text-sm">테이크아웃 봉투와 브랜드 스티커로 배달/포장 때도 프리미엄 이미지를 전달합니다.</p>
+            <div class="modal-slider" id="slider-package">
+                <div class="slide active rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/package_design.png" alt="포장 디자인" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 1 · 한식 테이크아웃 봉투 + 골드 스티커 3종 세트</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/package_design_2.png" alt="카페 브랜딩 패키징" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 2 · 카페 브랜드 패키징 — 종이백 + 컵슬리브 + 스티커</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/package_design_3.png" alt="배달 도시락 패키징" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 3 · 배달 도시락 브랜딩 — 박스 2종 + 봉투 + QR 스티커</p>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="slider-btn" onclick="changeSlide('package', -1)">&#8592;</button>
+                <div class="slider-dots" id="dots-package">
+                    <div class="dot active" onclick="goToSlide('package', 0)"></div>
+                    <div class="dot" onclick="goToSlide('package', 1)"></div>
+                    <div class="dot" onclick="goToSlide('package', 2)"></div>
+                </div>
+                <button class="slider-btn" onclick="changeSlide('package', 1)">&#8594;</button>
+            </div>
+            <p class="text-xs text-gray-400 mt-3 text-center">봉투 + 스티커 세트 구성 | 인쇄 업체 연계 가능 | 추가 수량 할인</p>
+            <button onclick="closeModal('package')"
+                class="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg w-full">닫기</button>
+        </div>
+    </div>
+
+    <!-- 푸드 전문 촬영 모달 -->
+    <div id="modal-food" class="modal" onclick="closeModal('food')">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl mx-4" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold mb-2">푸드 전문 촬영 예시</h3>
+            <p class="text-gray-600 mb-4 text-sm">메뉴 10종을 전문 푸드 스타일리스트와 함께 상업용 고퀄리티 사진으로 촬영합니다. 메뉴판·SNS·배달앱 등록 전용 해상도
+                제공.</p>
+            <div class="modal-slider" id="slider-food">
+                <div class="slide active rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/food_photo_1.png" alt="갈비찜 촬영" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 1 · 갈비찜 — 탑뷰 무드샷, 김 연출, 스튜디오 조명</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/food_photo_2.png" alt="해물볶음 촬영" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 2 · 해물볶음 — 45도 앵글, 자연광 연출, SNS 최적화 구도</p>
+                </div>
+                <div class="slide rounded-xl overflow-hidden border border-gray-200">
+                    <img src="./friend-anti/images/food_photo_3.png" alt="빙수 촬영" class="w-full object-contain"
+                        style="max-height:380px;" />
+                    <p class="slide-caption">예시 3 · 팥빙수 — 플랫레이 연출, 토핑 스타일링, 카페 분위기</p>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="slider-btn" onclick="changeSlide('food', -1)">&#8592;</button>
+                <div class="slider-dots" id="dots-food">
+                    <div class="dot active" onclick="goToSlide('food', 0)"></div>
+                    <div class="dot" onclick="goToSlide('food', 1)"></div>
+                    <div class="dot" onclick="goToSlide('food', 2)"></div>
+                </div>
+                <button class="slider-btn" onclick="changeSlide('food', 1)">&#8594;</button>
+            </div>
+            <p class="text-xs text-gray-400 mt-3 text-center">메뉴 10종 | 고해상도 원본 JPG 제공 | 배달앱 등록 최적화</p>
+            <button onclick="closeModal('food')"
+                class="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg w-full">닫기</button>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('[id^="tab-"]').forEach(t => t.classList.add('hidden'));
+            document.getElementById('tab-' + tab).classList.remove('hidden');
+        }
+
+        function openModal(id) {
+            document.getElementById('modal-' + id).classList.add('show');
+            // 모달 열 때 슬라이더 첫 장으로 리셋
+            goToSlide(id, 0);
+        }
+        function closeModal(id) { document.getElementById('modal-' + id).classList.remove('show'); }
+
+        // 슬라이더 로직
+        const sliderState = {};
+        function changeSlide(id, dir) {
+            const slider = document.getElementById('slider-' + id);
+            if (!slider) return;
+            const slides = slider.querySelectorAll('.slide');
+            if (!sliderState[id]) sliderState[id] = 0;
+            sliderState[id] = (sliderState[id] + dir + slides.length) % slides.length;
+            goToSlide(id, sliderState[id]);
+        }
+        function goToSlide(id, idx) {
+            const slider = document.getElementById('slider-' + id);
+            if (!slider) return;
+            const slides = slider.querySelectorAll('.slide');
+            const dots = document.getElementById('dots-' + id);
+            slides.forEach((s, i) => {
+                s.classList.toggle('active', i === idx);
+            });
+            if (dots) {
+                dots.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+            }
+            sliderState[id] = idx;
+        }
+
+        const checkboxes = document.querySelectorAll('.toggle-checkbox');
+        const totalEl = document.getElementById('total-price');
+        const itemsEl = document.getElementById('selected-items');
+
+        checkboxes.forEach(cb => cb.addEventListener('change', updateCart));
+
+        function updateCart() {
+            let total = 0;
+            let html = '';
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const price = parseInt(cb.dataset.price);
+                    const name = cb.dataset.name;
+                    total += price;
+                    html += `<div class="flex justify-between text-sm bg-gray-50 p-2 rounded"><span>${name}</span><span class="font-bold text-purple-600">+${price.toLocaleString()}</span></div>`;
+                }
+            });
+            totalEl.textContent = total.toLocaleString() + '원';
+            itemsEl.innerHTML = html || '<p class="text-gray-400 text-xs text-center py-6">필요한 기능을 담아주세요</p>';
+        }
+
+        function checkout() {
+            const selected = Array.from(checkboxes).filter(cb => cb.checked);
+            if (selected.length === 0) { alert('서비스를 선택해주세요.'); return; }
+            alert('결제 페이지로 이동합니다.\n선택한 서비스: ' + selected.length + '개');
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer style="background:#080808;border-top:1px solid rgba(255,255,255,0.06);padding:60px 16px 40px;">
+        <div class="max-w-5xl mx-auto">
+            <div
+                style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:32px;margin-bottom:48px;">
+                <!-- 로고 & 설명 -->
+                <div style="max-width:300px;">
+                    <img src="./friend-anti/images/logo_lettering.png" alt="오너프랜즈"
+                        style="height:62px;width:auto;margin-bottom:16px;filter:brightness(1.1);">
+                    <p style="color:#6B7280;font-size:0.9rem;line-height:1.7;margin-bottom:0;">
+                        1인 식당 사장님을 위한 가상 본사 플랫폼.<br>
+                        마케팅, 디자인, 운영 시스템을 골라 쓰세요.
+                    </p>
+                </div>
+                <!-- 홈 버튼 & 링크 -->
+                <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-end;">
+                    <button onclick="window.scrollTo({top:0,behavior:'smooth'})"
+                        style="background:#F97316;color:white;font-weight:700;padding:12px 28px;border-radius:100px;border:none;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;gap:8px;transition:all 0.2s;"
+                        onmouseover="this.style.background='#EA580C';this.style.boxShadow='0 0 20px rgba(249,115,22,0.4)';"
+                        onmouseout="this.style.background='#F97316';this.style.boxShadow='none';">
+                        <i class="fas fa-arrow-up"></i> 홈 화면 바로가기
+                    </button>
+                    <a href="#services" style="color:#6B7280;font-size:0.85rem;text-decoration:none;"
+                        onmouseover="this.style.color='#F97316';" onmouseout="this.style.color='#6B7280';">서비스 둘러보기
+                        →</a>
+                </div>
+            </div>
+            <!-- 구분선 -->
+            <div
+                style="border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;">
+                <p style="color:#4B5563;font-size:0.8rem;margin:0;">© 2025 오너프랜즈 (Owner Friends). All rights reserved.
+                </p>
+                <p style="color:#4B5563;font-size:0.8rem;margin:0;">혼자서도 본사처럼 — 제2의 할맥을 함께 만들겠습니다.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

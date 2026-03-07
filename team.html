@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team | 오너프랜즈</title>
+    <meta name="description" content="오너프랜즈 팀을 소개합니다. 투자·브랜딩·프랜차이즈·디자인·광고 분야 최고 전문가들이 함께합니다.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #F97316;
+            --orange-dark: #EA580C;
+            --orange-glow: rgba(249, 115, 22, 0.25);
+            --bg-base: #0D0D0D;
+            --bg-card: #161616;
+            --bg-card2: #1E1E1E;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #F5F5F5;
+            --text-sub: #9CA3AF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Noto Sans KR', sans-serif;
+            min-height: 100vh;
+        }
+
+        .badge-orange {
+            background: rgba(249, 115, 22, 0.15);
+            color: #F97316;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .member-card {
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px 32px;
+            transition: all 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #F97316, transparent);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .member-card:hover {
+            border-color: rgba(249, 115, 22, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 24px 60px rgba(249, 115, 22, 0.08);
+        }
+
+        .member-card:hover::before {
+            opacity: 1;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border: 2px solid rgba(249, 115, 22, 0.3);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(249, 115, 22, 0.12);
+            color: #F97316;
+            border-radius: 100px;
+            padding: 3px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-up {
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40"
+        style="background:rgba(13,13,13,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="./index.html" style="text-decoration:none;">
+                <img src="./friend-anti/images/logo_lettering.png" alt="오너프랜즈"
+                    style="height:34px;width:auto;filter:brightness(1.05);">
+            </a>
+            <nav style="display:flex;align-items:center;gap:20px;">
+                <a href="./index.html"
+                    style="color:#9CA3AF;font-size:0.87rem;font-weight:600;text-decoration:none;transition:color 0.2s;"
+                    onmouseover="this.style.color='#F5F5F5'" onmouseout="this.style.color='#9CA3AF'">Home</a>
+                <a href="./vision.html"
+                    style="color:#9CA3AF;font-size:0.87rem;font-weight:600;text-decoration:none;transition:color 0.2s;"
+                    onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#9CA3AF'">Vision</a>
+                <a href="./team.html"
+                    style="color:#F97316;font-size:0.87rem;font-weight:700;text-decoration:none;border-bottom:2px solid #F97316;padding-bottom:2px;">Team</a>
+                <a href="./index.html#services"
+                    style="background:#F97316;color:white;font-weight:700;padding:8px 20px;border-radius:100px;font-size:0.85rem;text-decoration:none;transition:all 0.2s;"
+                    onmouseover="this.style.background='#EA580C'" onmouseout="this.style.background='#F97316'">서비스 보기
+                    →</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section
+        style="background:linear-gradient(160deg,#0D0D0D 0%,#1a0900 50%,#0D0D0D 100%);padding:100px 16px 80px;position:relative;overflow:hidden;">
+        <div
+            style="position:absolute;top:-80px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(249,115,22,0.12) 0%,transparent 70%);pointer-events:none;">
+        </div>
+        <div class="max-w-4xl mx-auto text-center" style="position:relative;z-index:1;">
+            <span class="badge-orange animate-up" style="display:inline-block;margin-bottom:24px;">Our Team</span>
+            <h1 class="animate-up delay-100"
+                style="font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;color:#F5F5F5;line-height:1.1;margin-bottom:20px;">
+                각 분야 <span style="color:#F97316;">최고 전문가</span>들이<br>함께합니다
+            </h1>
+            <p class="animate-up delay-200"
+                style="font-size:1.1rem;color:#9CA3AF;line-height:1.7;max-width:520px;margin:0 auto;">
+                투자·브랜딩·프랜차이즈·디자인·광고 영역의 대표들이<br>
+                오너프랜즈의 비전을 함께 만들어갑니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- 팀 멤버 그리드 -->
+    <section style="padding:80px 16px;background:#0D0D0D;">
+        <div class="max-w-6xl mx-auto">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+
+                <!-- 투자사 대표 -->
+                <div class="member-card animate-up" style="grid-column: span 1;">
+                    <div class="avatar" style="background:rgba(249,115,22,0.1);">💼</div>
+                    <div style="margin-bottom:12px;">
+                        <span class="tag">투자</span>
+                        <span class="tag">재무</span>
+                        <span class="tag">EXIT 전략</span>
+                    </div>
+                    <h3 style="font-size:1.4rem;font-weight:900;color:#F5F5F5;margin-bottom:6px;">투자사 대표</h3>
+                    <p style="font-size:1rem;color:#F97316;font-weight:700;margin-bottom:16px;">Investment Lead</p>
+                    <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.7;">
+                        스타트업 및 외식 F&B 분야 투자 전문가. 할맥·역전우동·불막창 등 다수 성공 EXIT을 경험한 인사이트로 오너프랜즈 포트폴리오 가게의 성장 전략을 설계합니다.
+                    </p>
+                    <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06);">
+                        <p style="font-size:0.78rem;color:#4B5563;text-align:center;letter-spacing:0.05em;">Coming Soon
+                            — 상세 프로필 준비 중</p>
+                    </div>
+                </div>
+
+                <!-- 브랜딩 대표 -->
+                <div class="member-card animate-up delay-100">
+                    <div class="avatar" style="background:rgba(168,85,247,0.1);">🎨</div>
+                    <div style="margin-bottom:12px;">
+                        <span class="tag">브랜딩</span>
+                        <span class="tag">아이덴티티</span>
+                        <span class="tag">스토리텔링</span>
+                    </div>
+                    <h3 style="font-size:1.4rem;font-weight:900;color:#F5F5F5;margin-bottom:6px;">브랜딩 대표</h3>
+                    <p style="font-size:1rem;color:#F97316;font-weight:700;margin-bottom:16px;">Brand Strategy Lead</p>
+                    <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.7;">
+                        국내 유명 F&B 브랜드 20여개의 아이덴티티를 설계한 브랜드 전략가. "가게의 이야기가 곧 매출"이라는 철학으로 오너프랜즈 파트너 가게의 브랜드 기반을 만듭니다.
+                    </p>
+                    <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06);">
+                        <p style="font-size:0.78rem;color:#4B5563;text-align:center;letter-spacing:0.05em;">Coming Soon
+                            — 상세 프로필 준비 중</p>
+                    </div>
+                </div>
+
+                <!-- 프랜차이즈 대표 -->
+                <div class="member-card animate-up delay-200">
+                    <div class="avatar" style="background:rgba(16,185,129,0.1);">🏢</div>
+                    <div style="margin-bottom:12px;">
+                        <span class="tag">프랜차이즈</span>
+                        <span class="tag">가맹 시스템</span>
+                        <span class="tag">SOP</span>
+                    </div>
+                    <h3 style="font-size:1.4rem;font-weight:900;color:#F5F5F5;margin-bottom:6px;">프랜차이즈 대표</h3>
+                    <p style="font-size:1rem;color:#F97316;font-weight:700;margin-bottom:16px;">Franchise Operations
+                        Lead</p>
+                    <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.7;">
+                        200개 이상 가맹점 운영 시스템을 직접 구축한 프랜차이즈 전문가. 개인 가게를 "본사처럼 운영되는 가게"로 탈바꿈시키는 SOP 시스템 설계를 이끕니다.
+                    </p>
+                    <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06);">
+                        <p style="font-size:0.78rem;color:#4B5563;text-align:center;letter-spacing:0.05em;">Coming Soon
+                            — 상세 프로필 준비 중</p>
+                    </div>
+                </div>
+
+                <!-- 디자인 대표 -->
+                <div class="member-card animate-up delay-300">
+                    <div class="avatar" style="background:rgba(59,130,246,0.1);">✏️</div>
+                    <div style="margin-bottom:12px;">
+                        <span class="tag">디자인</span>
+                        <span class="tag">UX/UI</span>
+                        <span class="tag">공간</span>
+                    </div>
+                    <h3 style="font-size:1.4rem;font-weight:900;color:#F5F5F5;margin-bottom:6px;">디자인 대표</h3>
+                    <p style="font-size:1rem;color:#F97316;font-weight:700;margin-bottom:16px;">Creative Design Lead</p>
+                    <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.7;">
+                        국내 외식 브랜드 시각 아이덴티티·메뉴판·패키지 디자인 전문가. "디자인이 곧 마케팅"이라는 믿음으로 오너프랜즈 파트너 가게의 첫인상을 책임집니다.
+                    </p>
+                    <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06);">
+                        <p style="font-size:0.78rem;color:#4B5563;text-align:center;letter-spacing:0.05em;">Coming Soon
+                            — 상세 프로필 준비 중</p>
+                    </div>
+                </div>
+
+                <!-- 광고회사 대표 -->
+                <div class="member-card animate-up delay-400" style="grid-column: span 1;">
+                    <div class="avatar" style="background:rgba(239,68,68,0.1);">📣</div>
+                    <div style="margin-bottom:12px;">
+                        <span class="tag">광고</span>
+                        <span class="tag">퍼포먼스</span>
+                        <span class="tag">인플루언서</span>
+                    </div>
+                    <h3 style="font-size:1.4rem;font-weight:900;color:#F5F5F5;margin-bottom:6px;">광고회사 대표</h3>
+                    <p style="font-size:1rem;color:#F97316;font-weight:700;margin-bottom:16px;">Performance Marketing
+                        Lead</p>
+                    <p style="color:#9CA3AF;font-size:0.9rem;line-height:1.7;">
+                        수백 개 로컬 F&B 광고 캠페인을 성공시킨 퍼포먼스 마케터. 네이버·인스타·배달앱을 아우르는 통합 마케팅 전략으로 오너프랜즈 파트너 가게의 주문을 폭발시킵니다.
+                    </p>
+                    <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06);">
+                        <p style="font-size:0.78rem;color:#4B5563;text-align:center;letter-spacing:0.05em;">Coming Soon
+                            — 상세 프로필 준비 중</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 합류 CTA -->
+            <div
+                style="margin-top:64px;text-align:center;background:linear-gradient(135deg,rgba(249,115,22,0.1) 0%,rgba(234,88,12,0.05) 100%);border:1px solid rgba(249,115,22,0.25);border-radius:24px;padding:56px 32px;">
+                <div style="font-size:2rem;margin-bottom:16px;">🤝</div>
+                <h3 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:#F5F5F5;margin-bottom:12px;">
+                    우리와 함께 <span style="color:#F97316;">성장하고 싶으신가요?</span>
+                </h3>
+                <p style="color:#9CA3AF;font-size:0.95rem;line-height:1.7;max-width:480px;margin:0 auto 28px;">
+                    오너프랜즈는 각 분야 최고 전문가와 함께<br>한국 외식업의 새로운 표준을 만들어가고 있습니다.
+                </p>
+                <a href="./index.html#services"
+                    style="display:inline-block;background:#F97316;color:white;font-weight:700;padding:14px 36px;border-radius:100px;text-decoration:none;font-size:1rem;transition:all 0.2s;"
+                    onmouseover="this.style.boxShadow='0 0 32px rgba(249,115,22,0.5)';this.style.transform='scale(1.04)';"
+                    onmouseout="this.style.boxShadow='none';this.style.transform='scale(1)';">서비스 알아보기 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background:#080808;border-top:1px solid rgba(255,255,255,0.06);padding:48px 16px 32px;">
+        <div class="max-w-5xl mx-auto">
+            <div
+                style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:32px;">
+                <div>
+                    <img src="./friend-anti/images/logo_lettering.png" alt="오너프랜즈"
+                        style="height:34px;width:auto;margin-bottom:12px;filter:brightness(1.1);">
+                    <p style="color:#6B7280;font-size:0.85rem;line-height:1.6;">1인 식당 사장님을 위한 가상 본사 플랫폼.</p>
+                </div>
+                <nav style="display:flex;gap:24px;">
+                    <a href="./index.html" style="color:#6B7280;font-size:0.85rem;text-decoration:none;">Home</a>
+                    <a href="./vision.html" style="color:#6B7280;font-size:0.85rem;text-decoration:none;">Vision</a>
+                    <a href="./team.html" style="color:#F97316;font-size:0.85rem;text-decoration:none;">Team</a>
+                </nav>
+            </div>
+            <div
+                style="border-top:1px solid rgba(255,255,255,0.05);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;">
+                <p style="color:#4B5563;font-size:0.78rem;">© 2025 오너프랜즈 (Owner Friends). All rights reserved.</p>
+                <p style="color:#4B5563;font-size:0.78rem;">혼자서도 본사처럼</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

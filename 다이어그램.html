@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오너프랜즈 | AI 솔루션 기반 비즈니스 아키텍처</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            word-break: keep-all;
+        }
+        
+        /* 안정적인 차트 컨테이너 */
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 320px;
+        }
+
+        /* 순수 CSS 화살표 (SVG 대체, 깨짐 방지) */
+        .css-arrow-down {
+            width: 0; 
+            height: 0; 
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 16px solid #e2e8f0; /* slate-200 */
+            margin: 0 auto;
+        }
+        .css-arrow-right {
+            width: 0; 
+            height: 0; 
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            border-left: 16px solid #e2e8f0;
+            display: inline-block;
+        }
+        @media (max-width: 768px) {
+            .md-arrow-right-to-down {
+                border-top: 16px solid #e2e8f0;
+                border-left: 12px solid transparent;
+                border-right: 12px solid transparent;
+                border-bottom: none;
+                margin: 10px auto;
+                display: block;
+            }
+        }
+
+        /* 다이어그램 박스 호버 효과 */
+        .diagram-node {
+            transition: all 0.3s ease;
+        }
+        .diagram-node:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 그라데이션 포인트 */
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+    <!-- Palette: White Background with #764ba2 (Purple) and #667eea (Indigo) accents based on user index.html -->
+</head>
+<body class="bg-white p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto space-y-12">
+
+        <!-- Header -->
+        <header class="border-b border-gray-200 pb-8 pt-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full mb-3">
+                        Visual Architecture Report
+                    </span>
+                    <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                        <span class="gradient-text">오너프랜즈</span> 비즈니스 아키텍처
+                    </h1>
+                    <p class="text-sm text-slate-500 font-bold mt-2">Data-Driven F&B AI Solution & Incubator Platform</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Block 1: The Problem vs Solution (Grid Layout Diagram - 안정화) -->
+        <section>
+            <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
+                <span class="w-2 h-6 bg-purple-600 mr-3 rounded"></span>
+                1. 구조적 혁신: 파편화된 외주 vs 통합 AI 가상 본사
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                <!-- AS-IS Diagram (Grid base) -->
+                <div class="bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-200 flex flex-col h-full">
+                    <div class="text-center mb-6">
+                        <span class="bg-slate-200 text-slate-600 text-xs font-black px-4 py-1.5 rounded-full">AS-IS (현재 구조)</span>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col items-center justify-center gap-4 w-full max-w-sm mx-auto">
+                        <!-- External Agencies -->
+                        <div class="flex justify-between w-full gap-2">
+                            <div class="flex-1 bg-white border border-red-200 p-3 rounded-lg text-center shadow-sm diagram-node">
+                                <div class="text-xs font-bold text-red-600">광고 대행사</div>
+                                <div class="text-[10px] text-slate-500 mt-1">고비용 / 불투명</div>
+                            </div>
+                            <div class="flex-1 bg-white border border-red-200 p-3 rounded-lg text-center shadow-sm diagram-node">
+                                <div class="text-xs font-bold text-red-600">외주 디자인</div>
+                                <div class="text-[10px] text-slate-500 mt-1">소통 단절 / 1회성</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-8">
+                            <div class="css-arrow-down" style="border-top-color: #fca5a5;"></div>
+                            <div class="css-arrow-down" style="border-top-color: #fca5a5;"></div>
+                        </div>
+
+                        <!-- User -->
+                        <div class="w-full bg-white border-2 border-slate-300 p-4 rounded-xl text-center shadow-md z-10 diagram-node">
+                            <div class="font-black text-slate-800">나홀로 사장님</div>
+                            <div class="text-xs text-slate-500 mt-1">데이터 파편화 및 관리 부담 가중</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TO-BE Diagram (Flex base) -->
+                <div class="bg-purple-50 rounded-2xl p-6 md:p-8 border border-purple-100 flex flex-col h-full">
+                    <div class="text-center mb-6">
+                        <span class="gradient-bg text-white text-xs font-black px-4 py-1.5 rounded-full">TO-BE (오너프랜즈 솔루션)</span>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col items-center w-full max-w-md mx-auto">
+                        <!-- Modules -->
+                        <div class="grid grid-cols-3 gap-2 w-full mb-2">
+                            <div class="bg-white border-2 border-purple-200 p-3 rounded-lg text-center shadow-sm diagram-node">
+                                <div class="text-lg mb-1">📢</div>
+                                <div class="text-xs font-bold text-purple-700">AI 마케팅</div>
+                            </div>
+                            <div class="bg-white border-2 border-purple-200 p-3 rounded-lg text-center shadow-sm diagram-node">
+                                <div class="text-lg mb-1">🍱</div>
+                                <div class="text-xs font-bold text-purple-700">매출공학 디자인</div>
+                            </div>
+                            <div class="bg-white border-2 border-purple-200 p-3 rounded-lg text-center shadow-sm diagram-node">
+                                <div class="text-lg mb-1">🧮</div>
+                                <div class="text-xs font-bold text-purple-700">운영/재무 솔루션</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Collector border -->
+                        <div class="w-3/4 h-6 border-b-2 border-l-2 border-r-2 border-purple-300 rounded-b-xl mb-2"></div>
+                        
+                        <!-- Core -->
+                        <div class="w-full gradient-bg text-white font-black text-lg py-4 rounded-xl text-center shadow-lg relative diagram-node z-10 mb-2">
+                            오너프랜즈 AI 통합 대시보드
+                        </div>
+                        
+                        <div class="css-arrow-down" style="border-top-color: #9333ea;"></div>
+
+                        <!-- User -->
+                        <div class="w-full bg-white border-2 border-purple-600 p-4 rounded-xl text-center shadow-md diagram-node mt-2">
+                            <div class="font-black text-purple-800">나홀로 사장님</div>
+                            <div class="text-xs text-purple-600 mt-1 font-bold">필요한 솔루션만 도입 · 통합 데이터 관리</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Block 2: Business Flywheel & Evolution (Stable Flex Diagram + Chart) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 border-t border-gray-100 pt-12">
+            <!-- Left: Solution Data Flywheel Diagram -->
+            <div class="flex flex-col">
+                <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
+                    <span class="w-2 h-6 bg-blue-500 mr-3 rounded"></span>
+                    2. 데이터 애그리게이터 파이프라인
+                </h2>
+                
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 flex-1 flex flex-col justify-center items-center shadow-sm relative overflow-hidden">
+                    <!-- Background aesthetic -->
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-blue-50 rounded-full opacity-50"></div>
+                    
+                    <div class="flex flex-col md:flex-row items-center justify-center w-full gap-4 md:gap-2 relative z-10">
+                        <!-- Step 1 -->
+                        <div class="bg-slate-50 border-2 border-slate-200 rounded-xl p-5 w-full md:w-1/3 text-center diagram-node">
+                            <div class="text-xs font-bold text-blue-600 mb-2">PHASE 1</div>
+                            <div class="font-black text-slate-800 text-sm">AI 솔루션 도입</div>
+                            <div class="text-[11px] text-slate-500 mt-2 bg-white rounded border border-slate-100 py-1.5 px-2">안정적 솔루션 라이선스 매출</div>
+                        </div>
+
+                        <!-- Arrow -->
+                        <div class="css-arrow-right md-arrow-right-to-down border-l-blue-300 md:border-t-blue-300"></div>
+
+                        <!-- Step 2 -->
+                        <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-5 w-full md:w-1/3 text-center diagram-node">
+                            <div class="text-xs font-bold text-blue-600 mb-2">PHASE 2</div>
+                            <div class="font-black text-blue-900 text-sm">통합 데이터 마이닝</div>
+                            <div class="text-[11px] text-blue-700 mt-2 bg-white rounded border border-blue-100 py-1.5 px-2">매출/리뷰 분석 기반 노포 발굴</div>
+                        </div>
+
+                        <!-- Arrow -->
+                        <div class="css-arrow-right md-arrow-right-to-down border-l-purple-300 md:border-t-purple-300"></div>
+
+                        <!-- Step 3 -->
+                        <div class="bg-purple-50 border-2 border-purple-300 rounded-xl p-5 w-full md:w-1/3 text-center diagram-node shadow-md">
+                            <div class="text-xs font-bold text-purple-600 mb-2">PHASE 3</div>
+                            <div class="font-black text-purple-900 text-sm">IP 스케일업 & M&A</div>
+                            <div class="text-[11px] text-purple-700 mt-2 bg-white rounded border border-purple-100 py-1.5 px-2">미래 지분 및 프랜차이즈 로열티</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Revenue Evolution Chart -->
+            <div class="flex flex-col">
+                <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
+                    <span class="w-2 h-6 bg-pink-500 mr-3 rounded"></span>
+                    3. 비즈니스 모델 수익 전환 곡선
+                </h2>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 flex-1 shadow-sm flex flex-col">
+                    <div class="text-xs text-slate-500 mb-4 pl-2 font-semibold">솔루션 보급 성숙도에 따른 IP(지식재산권) 기반 수익 다변화 시뮬레이션</div>
+                    <div class="chart-wrapper flex-1">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Block 3: Market Funnel & Global Export -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 border-t border-gray-100 pt-12 pb-12">
+            <!-- Left: Market Funnel Chart -->
+            <div class="flex flex-col">
+                <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
+                    <span class="w-2 h-6 bg-teal-500 mr-3 rounded"></span>
+                    4. 데이터 기반 유망 노포 발굴 퍼널
+                </h2>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 flex-1 shadow-sm flex flex-col">
+                    <div class="text-xs text-slate-500 mb-4 pl-2 font-semibold">국내 70만 비프랜차이즈 매장 대상 필터링 메커니즘</div>
+                    <div class="chart-wrapper flex-1">
+                        <canvas id="funnelChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Global Export Strategy (Stable Diagram) -->
+            <div class="flex flex-col">
+                <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
+                    <span class="w-2 h-6 bg-emerald-500 mr-3 rounded"></span>
+                    5. K-Food 글로벌 프랜차이즈 수출 구조
+                </h2>
+                
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 flex-1 shadow-sm flex flex-col justify-center">
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 w-full">
+                        
+                        <!-- Left Block: Export Package -->
+                        <div class="w-full md:w-5/12 bg-slate-800 rounded-xl p-5 text-center shadow-lg diagram-node border-2 border-slate-700">
+                            <div class="bg-emerald-500/20 text-emerald-400 text-[10px] font-black px-3 py-1 rounded-full inline-block mb-4 border border-emerald-500/30">
+                                EXPORT PACKAGE 구성
+                            </div>
+                            <div class="font-black text-white text-sm mb-3">성공적인 K-노포 (Brand IP)</div>
+                            <div class="flex justify-center items-center gap-2 text-slate-400 font-bold mb-3">
+                                <span class="w-8 h-px bg-slate-600"></span>
+                                <span>➕</span>
+                                <span class="w-8 h-px bg-slate-600"></span>
+                            </div>
+                            <div class="font-black text-indigo-300 text-sm bg-indigo-900/50 py-2 rounded">오너프랜즈 (AI 관리 솔루션)</div>
+                        </div>
+
+                        <!-- Center: Relationship / Arrow -->
+                        <div class="flex flex-col items-center justify-center py-2 md:py-0">
+                            <div class="text-[11px] font-bold text-emerald-600 mb-2 bg-emerald-50 px-2 py-1 rounded-full border border-emerald-100">마스터 프랜차이즈 계약</div>
+                            <div class="css-arrow-right md-arrow-right-to-down border-l-emerald-400 md:border-t-emerald-400"></div>
+                        </div>
+
+                        <!-- Right Block: Target Markets -->
+                        <div class="w-full md:w-5/12 flex flex-col gap-3">
+                            <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-center text-sm font-bold text-emerald-800 shadow-sm diagram-node flex justify-between items-center px-4">
+                                <span>🇻🇳 베트남</span>
+                                <span class="text-[10px] bg-emerald-200 px-2 py-0.5 rounded text-emerald-800">핵심 타겟</span>
+                            </div>
+                            <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-center text-sm font-bold text-emerald-800 shadow-sm diagram-node flex justify-between items-center px-4">
+                                <span>🇮🇩 인도네시아</span>
+                                <span class="text-[10px] bg-emerald-200 px-2 py-0.5 rounded text-emerald-800">핵심 타겟</span>
+                            </div>
+                            <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-center text-sm font-bold text-slate-600 shadow-sm diagram-node flex justify-between items-center px-4">
+                                <span>🇹🇭 태국 외 동남아</span>
+                                <span class="text-[10px] bg-slate-200 px-2 py-0.5 rounded text-slate-600">확장 거점</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 text-center text-xs font-bold text-slate-600 bg-slate-50 border border-slate-200 py-3 rounded-xl border-dashed">
+                        목표: 시스템 라이선스 비용 및 브랜드 로열티 통합 수취 (초기 건당 $50,000+)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- Shared logic for Chart.js multiline text & tooltips ---
+        function splitLabel(label, maxLength = 16) {
+            if (label.length <= maxLength) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxLength) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    return Array.isArray(label) ? label.join(' ') : label;
+                }
+            }
+        };
+
+        // --- Chart 1: Revenue Evolution (Line + Area Chart) ---
+        const ctxRev = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctxRev, {
+            type: 'line',
+            data: {
+                labels: ['초기 (AI 솔루션 보급)', '중기 (데이터 축적)', '성숙기 (노포 스케일업)', '확장기 (글로벌 진출)'],
+                datasets: [
+                    {
+                        label: 'IP & 브랜드 로열티 수익',
+                        data: [0, 10, 50, 100],
+                        borderColor: '#d946ef', // Fuchsia 500
+                        backgroundColor: 'rgba(217, 70, 239, 0.15)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#d946ef',
+                        pointBorderColor: '#fff',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'AI 솔루션 라이선스 기본 수익',
+                        data: [20, 45, 60, 65],
+                        borderColor: '#6366f1', // Indigo 500
+                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#6366f1',
+                        pointBorderColor: '#fff',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    y: { 
+                        display: true, 
+                        beginAtZero: true,
+                        grid: { 
+                            display: true,
+                            color: '#f1f5f9',
+                            drawBorder: false
+                        },
+                        ticks: { display: false } // 수치 대신 추세에 집중
+                    },
+                    x: {
+                        grid: { display: false, drawBorder: false },
+                        ticks: { 
+                            font: { family: "'Pretendard', sans-serif", weight: '600', size: 11 }, 
+                            color: '#64748b',
+                            maxRotation: 45,
+                            minRotation: 0
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        ...tooltipConfig,
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleFont: { family: "'Pretendard', sans-serif", size: 13 },
+                        bodyFont: { family: "'Pretendard', sans-serif", size: 12 },
+                        padding: 10,
+                        cornerRadius: 8
+                    },
+                    legend: {
+                        position: 'top',
+                        align: 'end',
+                        labels: { 
+                            boxWidth: 12, 
+                            usePointStyle: true, 
+                            font: { family: "'Pretendard', sans-serif", size: 11, weight: '600' },
+                            color: '#475569'
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- Chart 2: Funnel Chart (Horizontal Bar Chart) ---
+        const ctxFunnel = document.getElementById('funnelChart').getContext('2d');
+        const labelsFunnelRaw = ['국내 전체 독립매장 (TAM)', '솔루션 도입 유효 매장 (SAM)', '통합 데이터 추출 유의미 매장', 'IP 스케일업 최종 선정 매장'];
+        const labelsFunnelProc = labelsFunnelRaw.map(l => splitLabel(l, 16));
+
+        new Chart(ctxFunnel, {
+            type: 'bar',
+            data: {
+                labels: labelsFunnelProc,
+                datasets: [{
+                    label: '규모 및 잠재력 비율',
+                    data: [100, 40, 15, 2], // Visual representation scale
+                    backgroundColor: [
+                        '#e2e8f0', // Slate 200
+                        '#cbd5e1', // Slate 300
+                        '#818cf8', // Indigo 400
+                        '#9333ea'  // Purple 600 (Final Goal)
+                    ],
+                    borderRadius: 8,
+                    barPercentage: 0.6,
+                    borderWidth: 1,
+                    borderColor: 'rgba(255,255,255,0.5)'
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Makes it horizontal
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: false, // Hide x axis completely to look like a funnel
+                        beginAtZero: true,
+                        max: 105
+                    },
+                    y: {
+                        grid: { display: false, drawBorder: false },
+                        ticks: {
+                            font: { family: "'Pretendard', sans-serif", weight: '700', size: 12 },
+                            color: '#334155'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        ...tooltipConfig,
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleFont: { family: "'Pretendard', sans-serif", size: 13 },
+                        padding: 10,
+                        cornerRadius: 8
+                    },
+                    legend: { display: false }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
