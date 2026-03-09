@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레시피 카드 | 오너프랜즈</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 18px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .big-btn {
+            font-size: 20px;
+            font-weight: 800;
+            padding: 1.25rem 2rem;
+        }
+
+        .menu-card {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-5xl mx-auto">
+
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div class="inline-block bg-purple-600 text-white px-6 py-2 rounded-full font-bold mb-4">오너프랜즈 샘플</div>
+                <h1 class="text-3xl md:text-4xl font-black mb-2">레시피 카드</h1>
+                <p class="text-gray-600 text-lg">주방 이모님이 바뀌어도 맛을 똑같이 유지하세요</p>
+            </div>
+
+            <!-- 메뉴 선택 -->
+            <div id="menu-selection" class="bg-white rounded-2xl p-8 shadow-xl border-2 border-purple-100 mb-8">
+                <h2 class="text-2xl font-black mb-2">📸 메뉴 선택</h2>
+                <p class="text-gray-500 mb-6">레시피 카드를 만들 메뉴를 선택하세요</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="menu-card bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200"
+                        onclick="loadRecipe('kimchi')">
+                        <div class="text-4xl mb-2">🍲</div>
+                        <p class="font-bold text-lg">김치찌개</p>
+                    </div>
+                    <div class="menu-card bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border-2 border-yellow-200"
+                        onclick="loadRecipe('doenjang')">
+                        <div class="text-4xl mb-2">🥘</div>
+                        <p class="font-bold text-lg">된장찌개</p>
+                    </div>
+                    <div class="menu-card bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border-2 border-orange-200"
+                        onclick="loadRecipe('bulgogi')">
+                        <div class="text-4xl mb-2">🥩</div>
+                        <p class="font-bold text-lg">불고기</p>
+                    </div>
+                    <div class="menu-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200"
+                        onclick="loadRecipe('jjajang')">
+                        <div class="text-4xl mb-2">🍜</div>
+                        <p class="font-bold text-lg">짜장면</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                    <p class="text-sm text-blue-800">💡 <strong>실제 서비스에서는</strong> 사진을 찍으면 AI가 자동으로 메뉴를 인식합니다</p>
+                </div>
+            </div>
+
+            <!-- 레시피 카드 -->
+            <div id="recipe-card" class="hidden bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-100">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-black" id="recipe-title">🍲 김치찌개 레시피</h2>
+                    <button onclick="backToMenu()" class="text-gray-600 hover:text-gray-800 font-bold text-lg">←
+                        목록으로</button>
+                </div>
+
+                <!-- 인분 설정 -->
+                <div class="mb-6 p-5 bg-purple-50 rounded-xl border-2 border-purple-200">
+                    <label class="block text-lg font-black mb-3">👥 인분 (4인분 기준)</label>
+                    <div class="flex items-center gap-4">
+                        <button onclick="changeServing(-1)"
+                            class="bg-purple-600 hover:bg-purple-700 text-white font-black text-2xl w-12 h-12 rounded-xl">-</button>
+                        <input type="number" id="serving-size" value="4"
+                            class="w-24 text-center text-3xl font-black border-2 border-purple-300 rounded-xl py-2"
+                            readonly>
+                        <button onclick="changeServing(1)"
+                            class="bg-purple-600 hover:bg-purple-700 text-white font-black text-2xl w-12 h-12 rounded-xl">+</button>
+                        <span class="text-xl font-bold text-gray-700">인분</span>
+                    </div>
+                </div>
+
+                <!-- 재료 -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-black mb-4">🥘 재료</h3>
+                    <div id="ingredients-list" class="space-y-3">
+                        <!-- JavaScript로 채워짐 -->
+                    </div>
+                </div>
+
+                <!-- 조리법 -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-black mb-4">👨‍🍳 조리법</h3>
+                    <div id="cooking-steps" class="space-y-3">
+                        <!-- JavaScript로 채워짐 -->
+                    </div>
+                </div>
+
+                <!-- 팁 -->
+                <div class="p-5 bg-yellow-50 rounded-xl border-2 border-yellow-200">
+                    <h3 class="text-lg font-black mb-2">💡 맛있게 만드는 팁</h3>
+                    <p id="cooking-tip" class="text-gray-700"><!-- JavaScript로 채워짐 --></p>
+                </div>
+
+                <!-- 저장 버튼 -->
+                <div class="mt-6 flex gap-4">
+                    <button
+                        class="big-btn flex-1 bg-purple-600 hover:bg-purple-700 text-white rounded-2xl transition shadow-lg">
+                        💾 레시피 저장
+                    </button>
+                    <button
+                        class="big-btn flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl transition shadow-lg">
+                        📄 PDF 다운로드
+                    </button>
+                </div>
+            </div>
+
+            <!-- 샘플 안내 -->
+            <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 text-center">
+                <p class="text-sm text-blue-800 font-bold mb-2">📌 이것은 샘플 버전입니다</p>
+                <p class="text-sm text-gray-700">실제 서비스에서는 사진 AI 인식, 영양 성분 분석, 원가 계산, 프린터 출력 등이 제공됩니다.</p>
+                <a href="../index.html"
+                    class="inline-block mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-purple-700 transition">
+                    서비스 둘러보기 →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const recipes = {
+            kimchi: {
+                title: "🍲 김치찌개",
+                baseServing: 4,
+                ingredients: [
+                    { name: "신김치", amount: 300, unit: "g" },
+                    { name: "돼지고기 (목살)", amount: 200, unit: "g" },
+                    { name: "두부", amount: 1, unit: "모" },
+                    { name: "대파", amount: 1, unit: "대" },
+                    { name: "양파", amount: 0.5, unit: "개" },
+                    { name: "고춧가루", amount: 2, unit: "큰술" },
+                    { name: "다진 마늘", amount: 1, unit: "큰술" },
+                    { name: "참기름", amount: 1, unit: "큰술" },
+                    { name: "물", amount: 800, unit: "ml" }
+                ],
+                steps: [
+                    "신김치는 먹기 좋은 크기로 자르고, 돼지고기도 한입 크기로 썰어주세요",
+                    "냄비에 참기름을 두르고 돼지고기를 먼저 볶아주세요",
+                    "고기가 반쯤 익으면 신김치, 고춧가루, 다진 마늘을 넣고 함께 볶아주세요",
+                    "물을 붓고 끓이다가 두부, 대파, 양파를 넣어주세요",
+                    "중불에서 15~20분 정도 끓여 김치가 잘 익으면 완성!"
+                ],
+                tip: "김치는 신맛이 충분히 난 묵은지를 사용하면 더 맛있어요. 들기름을 추가하면 구수한 맛이 더해집니다."
+            },
+            doenjang: {
+                title: "🥘 된장찌개",
+                baseServing: 4,
+                ingredients: [
+                    { name: "된장", amount: 3, unit: "큰술" },
+                    { name: "두부", amount: 1, unit: "모" },
+                    { name: "감자", amount: 1, unit: "개" },
+                    { name: "애호박", amount: 0.5, unit: "개" },
+                    { name: "양파", amount: 0.5, unit: "개" },
+                    { name: "대파", amount: 1, unit: "대" },
+                    { name: "청양고추", amount: 2, unit: "개" },
+                    { name: "다진 마늘", amount: 1, unit: "큰술" },
+                    { name: "멸치 육수", amount: 800, unit: "ml" }
+                ],
+                steps: [
+                    "멸치와 다시마로 육수를 우려내세요 (10분)",
+                    "감자, 애호박, 양파를 먹기 좋은 크기로 썰어주세요",
+                    "육수에 된장을 풀고 감자를 먼저 넣어 끓여주세요",
+                    "감자가 반쯤 익으면 애호박, 양파, 두부를 넣어주세요",
+                    "대파, 청양고추, 다진 마늘을 넣고 5분만 더 끓이면 완성!"
+                ],
+                tip: "된장은 체에 거르면서 풀면 덩어리 없이 깔끔합니다. 양파를 많이 넣으면 단맛이 더 좋아요."
+            },
+            bulgogi: {
+                title: "🥩 불고기",
+                baseServing: 4,
+                ingredients: [
+                    { name: "불고기용 소고기", amount: 600, unit: "g" },
+                    { name: "양파", amount: 1, unit: "개" },
+                    { name: "대파", amount: 2, unit: "대" },
+                    { name: "당근", amount: 0.5, unit: "개" },
+                    { name: "간장", amount: 6, unit: "큰술" },
+                    { name: "설탕", amount: 3, unit: "큰술" },
+                    { name: "다진 마늘", amount: 2, unit: "큰술" },
+                    { name: "참기름", amount: 2, unit: "큰술" },
+                    { name: "후추", amount: 0.5, unit: "작은술" }
+                ],
+                steps: [
+                    "간장, 설탕, 다진 마늘, 참기름, 후추를 섞어 양념장을 만들어주세요",
+                    "소고기와 양념장을 잘 버무려 30분 정도 재워주세요",
+                    "양파, 대파, 당근을 먹기 좋은 크기로 썰어주세요",
+                    "달군 팬에 재운 고기와 채소를 함께 볶아주세요",
+                    "고기가 다 익고 양념이 조여지면 완성!"
+                ],
+                tip: "배즙이나 키위즙을 넣으면 고기가 더 부드러워져요. 버섯을 추가하면 감칠맛이 더 좋습니다."
+            },
+            jjajang: {
+                title: "🍜 짜장면",
+                baseServing: 4,
+                ingredients: [
+                    { name: "춘장", amount: 200, unit: "g" },
+                    { name: "돼지고기 (삼겹살)", amount: 300, unit: "g" },
+                    { name: "양파", amount: 2, unit: "개" },
+                    { name: "감자", amount: 1, unit: "개" },
+                    { name: "애호박", amount: 1, unit: "개" },
+                    { name: "식용유", amount: 4, unit: "큰술" },
+                    { name: "설탕", amount: 2, unit: "큰술" },
+                    { name: "물", amount: 400, unit: "ml" },
+                    { name: "중면", amount: 4, unit: "인분" }
+                ],
+                steps: [
+                    "돼지고기는 작은 주사위 모양으로, 야채는 먹기 좋게 썰어주세요",
+                    "팬에 기름을 두르고 춘장을 볶아 쓴맛을 날려주세요 (2분)",
+                    "돼지고기를 넣고 볶다가 양파, 감자, 애호박을 추가해주세요",
+                    "물을 붓고 설탕을 넣어 10분 정도 끓여주세요",
+                    "삶은 면에 짜장을 얹어 완성!"
+                ],
+                tip: "춘장을 미리 볶아두면 쓴맛이 없어져요. 감자 전분물을 넣으면 더 걸쭉하게 만들 수 있습니다."
+            }
+        };
+
+        let currentRecipe = null;
+        let currentServing = 4;
+
+        function loadRecipe(type) {
+            currentRecipe = recipes[type];
+            currentServing = currentRecipe.baseServing;
+
+            document.getElementById('menu-selection').classList.add('hidden');
+            document.getElementById('recipe-card').classList.remove('hidden');
+            document.getElementById('recipe-title').textContent = currentRecipe.title;
+            document.getElementById('serving-size').value = currentServing;
+
+            updateIngredients();
+            updateSteps();
+            document.getElementById('cooking-tip').textContent = currentRecipe.tip;
+        }
+
+        function backToMenu() {
+            document.getElementById('recipe-card').classList.add('hidden');
+            document.getElementById('menu-selection').classList.remove('hidden');
+        }
+
+        function changeServing(delta) {
+            currentServing = Math.max(1, currentServing + delta);
+            document.getElementById('serving-size').value = currentServing;
+            updateIngredients();
+        }
+
+        function updateIngredients() {
+            const container = document.getElementById('ingredients-list');
+            const ratio = currentServing / currentRecipe.baseServing;
+
+            container.innerHTML = currentRecipe.ingredients.map(ing => {
+                const adjustedAmount = (ing.amount * ratio).toFixed(ing.unit === 'g' || ing.unit === 'ml' ? 0 : 1);
+                return `
+                    <div class="flex justify-between items-center bg-gray-50 p-4 rounded-xl border-2 border-gray-200">
+                        <span class="text-lg font-bold">${ing.name}</span>
+                        <span class="text-xl font-black text-purple-600">${adjustedAmount} ${ing.unit}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateSteps() {
+            const container = document.getElementById('cooking-steps');
+            container.innerHTML = currentRecipe.steps.map((step, idx) => `
+                <div class="flex gap-4 items-start">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-black text-lg">
+                        ${idx + 1}
+                    </div>
+                    <p class="flex-1 text-lg pt-2">${step}</p>
+                </div>
+            `).join('');
+        }
+    </script>
+
+</body>
+
+</html>

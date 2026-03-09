@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>근무표 자동 생성기 | 오너프랜즈</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 18px;
+        }
+
+        .schedule-cell {
+            min-width: 100px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        input,
+        select {
+            font-size: 20px;
+        }
+
+        .big-btn {
+            font-size: 20px;
+            font-weight: 800;
+            padding: 1.25rem 2rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div class="inline-block bg-purple-600 text-white px-6 py-2 rounded-full font-bold mb-4">오너프랜즈 샘플</div>
+                <h1 class="text-3xl md:text-4xl font-black mb-2">근무표 자동 생성기</h1>
+                <p class="text-gray-600">직원 정보만 입력하면 1주일 근무표가 자동 생성됩니다</p>
+            </div>
+
+            <!-- 직원 추가 -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-purple-100 mb-8">
+                <h2 class="text-2xl font-black mb-2">👥 직원 추가</h2>
+                <p class="text-gray-500 mb-6">직원 이름과 선호 시간대를 입력하세요</p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-lg font-black text-gray-900 mb-3">이름</label>
+                        <input type="text" id="employee-name"
+                            class="w-full px-5 py-4 border-3 border-gray-300 rounded-2xl text-xl" placeholder="예: 김철수">
+                    </div>
+                    <div>
+                        <label class="block text-lg font-black text-gray-900 mb-3">선호 시간대</label>
+                        <select id="employee-shift"
+                            class="w-full px-5 py-4 border-3 border-gray-300 rounded-2xl text-xl">
+                            <option value="morning">오전 (09:00-15:00)</option>
+                            <option value="afternoon">오후 (15:00-21:00)</option>
+                            <option value="full">풀타임 (09:00-21:00)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="addEmployee()"
+                    class="big-btn w-full bg-purple-600 hover:bg-purple-700 text-white rounded-2xl transition shadow-lg">
+                    ✚ 직원 추가하기
+                </button>
+
+                <div id="employee-list" class="mt-6 space-y-3">
+                    <!-- 직원 목록이 여기 표시됩니다 -->
+                </div>
+            </div>
+
+            <!-- 근무표 -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-100 mb-8">
+                <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+                    <h2 class="text-2xl font-black">📅 주간 근무표</h2>
+                    <button onclick="generateSchedule()"
+                        class="big-btn bg-blue-600 hover:bg-blue-700 text-white rounded-2xl transition shadow-lg">
+                        🔄 근무표 자동 생성
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-purple-100">
+                                <th class="border-2 border-gray-300 p-3 text-center font-bold">시간대</th>
+                                <th class="border-2 border-gray-300 p-3 text-center font-bold">월</th>
+                                <th class="border-2 border-gray-300 p-3 text-center font-bold">화</th>
+                                <th class="border-2 border-gray-300 p-3 text-center font-bold">수</th>
+                                <th class="border-2 border-gray-300 p-3 text-center font-bold">목</th>
+                                <th class="border-2 border-gray-300 p-3 text-center font-bold">금</th>
+                                <th class="border-2 border-gray-300 p-3 text-center font-bold bg-blue-50">토</th>
+                                <th class="border-2 border-gray-300 p-3 text-center font-bold bg-red-50">일</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule-table">
+                            <tr>
+                                <td class="border-2 border-gray-300 p-3 font-bold bg-gray-50">오전<br><span
+                                        class="text-sm font-normal text-gray-500">09:00-15:00</span></td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="mon"
+                                    data-shift="morning">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="tue"
+                                    data-shift="morning">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="wed"
+                                    data-shift="morning">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="thu"
+                                    data-shift="morning">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="fri"
+                                    data-shift="morning">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell bg-blue-50"
+                                    data-day="sat" data-shift="morning">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell bg-red-50"
+                                    data-day="sun" data-shift="morning">-</td>
+                            </tr>
+                            <tr>
+                                <td class="border-2 border-gray-300 p-3 font-bold bg-gray-50">오후<br><span
+                                        class="text-sm font-normal text-gray-500">15:00-21:00</span></td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="mon"
+                                    data-shift="afternoon">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="tue"
+                                    data-shift="afternoon">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="wed"
+                                    data-shift="afternoon">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="thu"
+                                    data-shift="afternoon">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell" data-day="fri"
+                                    data-shift="afternoon">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell bg-blue-50"
+                                    data-day="sat" data-shift="afternoon">-</td>
+                                <td class="border-2 border-gray-300 p-3 text-center schedule-cell bg-red-50"
+                                    data-day="sun" data-shift="afternoon">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 샘플 안내 -->
+            <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 text-center">
+                <p class="text-sm text-blue-800 font-bold mb-2">📌 이것은 샘플 버전입니다</p>
+                <p class="text-sm text-gray-700">실제 서비스에서는 휴무일 설정, 급여 자동 계산, 카카오톡 자동 발송, 엑셀 다운로드 등이 제공됩니다.</p>
+                <a href="../index.html"
+                    class="inline-block mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-purple-700 transition">
+                    서비스 둘러보기 →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let employees = [];
+
+        function addEmployee() {
+            const name = document.getElementById('employee-name').value.trim();
+            const shift = document.getElementById('employee-shift').value;
+
+            if (!name) {
+                alert('이름을 입력해주세요.');
+                return;
+            }
+
+            employees.push({ name, shift });
+            updateEmployeeList();
+            document.getElementById('employee-name').value = '';
+        }
+
+        function removeEmployee(index) {
+            employees.splice(index, 1);
+            updateEmployeeList();
+        }
+
+        function updateEmployeeList() {
+            const list = document.getElementById('employee-list');
+            if (employees.length === 0) {
+                list.innerHTML = '<p class="text-gray-400 text-sm">추가된 직원이 없습니다</p>';
+                return;
+            }
+
+            const shiftNames = {
+                morning: '오전',
+                afternoon: '오후',
+                full: '풀타임'
+            };
+
+            list.innerHTML = employees.map((emp, idx) => `
+        <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+            <div>
+                <span class="font-bold">${emp.name}</span>
+                <span class="text-sm text-gray-600 ml-2">(${shiftNames[emp.shift]})</span>
+            </div>
+            <button onclick="removeEmployee(${idx})" class="text-red-600 hover:text-red-800 font-bold">✕</button>
+        </div>
+    `).join('');
+        }
+
+        function generateSchedule() {
+            if (employees.length === 0) {
+                alert('직원을 먼저 추가해주세요.');
+                return;
+            }
+
+            const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+            const shifts = ['morning', 'afternoon'];
+
+            // 근무표 초기화
+            document.querySelectorAll('.schedule-cell').forEach(cell => {
+                cell.textContent = '-';
+                cell.className = cell.className.replace(/bg-\w+-\d+/g, '');
+            });
+
+            // 직원별로 근무 배정
+            days.forEach(day => {
+                shifts.forEach(shift => {
+                    const cell = document.querySelector(`[data-day="${day}"][data-shift="${shift}"]`);
+
+                    // 해당 시간대 선호하는 직원 찾기
+                    const preferredEmployees = employees.filter(e =>
+                        e.shift === shift || e.shift === 'full'
+                    );
+
+                    if (preferredEmployees.length > 0) {
+                        const randomEmployee = preferredEmployees[Math.floor(Math.random() * preferredEmployees.length)];
+                        cell.textContent = randomEmployee.name;
+                        cell.classList.add('bg-green-100', 'font-bold');
+                    }
+                });
+            });
+
+            alert('✅ 근무표가 생성되었습니다!');
+        }
+
+        // 샘플 직원 자동 추가
+        setTimeout(() => {
+            document.getElementById('employee-name').value = '김철수';
+            document.getElementById('employee-shift').value = 'morning';
+            addEmployee();
+
+            document.getElementById('employee-name').value = '이영희';
+            document.getElementById('employee-shift').value = 'afternoon';
+            addEmployee();
+
+            document.getElementById('employee-name').value = '박민수';
+            document.getElementById('employee-shift').value = 'full';
+            addEmployee();
+        }, 500);
+    </script>
+
+</body>
+
+</html>
