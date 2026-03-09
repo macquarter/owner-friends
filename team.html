@@ -142,9 +142,9 @@
     <header class="sticky top-0 z-40"
         style="background:rgba(13,13,13,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);">
         <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
-            <a href="./index.html" style="text-decoration:none;">
-                <img src="./friend-anti/images/logo_lettering.png" alt="오너프랜즈"
-                    style="height:34px;width:auto;filter:brightness(1.05);">
+            <a href="./index.html" class="flex items-center gap-3" style="text-decoration:none;">
+                <img src="./images/logo_lettering.png" alt="오너프랜즈"
+                    style="height:52px;width:auto;filter:brightness(1.05);">
             </a>
             <nav style="display:flex;align-items:center;gap:20px;">
                 <a href="./index.html"
@@ -157,8 +157,8 @@
                     style="color:#F97316;font-size:0.87rem;font-weight:700;text-decoration:none;border-bottom:2px solid #F97316;padding-bottom:2px;">Team</a>
                 <a href="./index.html#services"
                     style="background:#F97316;color:white;font-weight:700;padding:8px 20px;border-radius:100px;font-size:0.85rem;text-decoration:none;transition:all 0.2s;"
-                    onmouseover="this.style.background='#EA580C'" onmouseout="this.style.background='#F97316'">서비스 보기
-                    →</a>
+                    onmouseover="this.style.background='#EA580C';this.style.boxShadow='0 0 20px rgba(249,115,22,0.4)';"
+                    onmouseout="this.style.background='#F97316';this.style.boxShadow='none';">서비스 둘러보기 →</a>
             </nav>
         </div>
     </header>
@@ -306,25 +306,45 @@
     </section>
 
     <!-- Footer -->
-    <footer style="background:#080808;border-top:1px solid rgba(255,255,255,0.06);padding:48px 16px 32px;">
+    <footer style="background:#080808;border-top:1px solid rgba(255,255,255,0.06);padding:60px 16px 40px;">
         <div class="max-w-5xl mx-auto">
             <div
-                style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:32px;">
-                <div>
-                    <img src="./friend-anti/images/logo_lettering.png" alt="오너프랜즈"
-                        style="height:34px;width:auto;margin-bottom:12px;filter:brightness(1.1);">
-                    <p style="color:#6B7280;font-size:0.85rem;line-height:1.6;">1인 식당 사장님을 위한 가상 본사 플랫폼.</p>
+                style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:32px;margin-bottom:48px;">
+                <!-- 로고 & 설명 -->
+                <div style="max-width:300px;">
+                    <img src="./images/logo_lettering.png" alt="오너프랜즈"
+                        style="height:62px;width:auto;margin-bottom:16px;filter:brightness(1.1);">
+                    <p style="color:#6B7280;font-size:0.9rem;line-height:1.7;margin-bottom:0;">
+                        1인 식당 사장님을 위한 가상 본사 플랫폼.<br>
+                        마케팅, 디자인, 운영 시스템을 골라 쓰세요.
+                    </p>
                 </div>
-                <nav style="display:flex;gap:24px;">
-                    <a href="./index.html" style="color:#6B7280;font-size:0.85rem;text-decoration:none;">Home</a>
-                    <a href="./vision.html" style="color:#6B7280;font-size:0.85rem;text-decoration:none;">Vision</a>
-                    <a href="./team.html" style="color:#F97316;font-size:0.85rem;text-decoration:none;">Team</a>
-                </nav>
+                <!-- 링크 & 홈 버튼 -->
+                <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-end;">
+                    <button onclick="window.location.href='./index.html'"
+                        style="background:#F97316;color:white;font-weight:700;padding:12px 28px;border-radius:100px;border:none;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;gap:8px;transition:all 0.2s;"
+                        onmouseover="this.style.background='#EA580C';this.style.boxShadow='0 0 20px rgba(249,115,22,0.4)';"
+                        onmouseout="this.style.background='#F97316';this.style.boxShadow='none';">
+                        <i class="fas fa-home"></i> 홈으로 돌아가기
+                    </button>
+                    <div style="display:flex;gap:20px;">
+                        <a href="./index.html" style="color:#6B7280;font-size:0.85rem;text-decoration:none;"
+                            onmouseover="this.style.color='#F97316';" onmouseout="this.style.color='#6B7280';">Home</a>
+                        <a href="./vision.html" style="color:#6B7280;font-size:0.85rem;text-decoration:none;"
+                            onmouseover="this.style.color='#F97316';"
+                            onmouseout="this.style.color='#6B7280';">Vision</a>
+                        <a href="./team.html" style="color:#F97316;font-size:0.85rem;text-decoration:none;">Team</a>
+                        <a href="./index.html#services" style="color:#6B7280;font-size:0.85rem;text-decoration:none;"
+                            onmouseover="this.style.color='#F97316';" onmouseout="this.style.color='#6B7280';">서비스 →</a>
+                    </div>
+                </div>
             </div>
+            <!-- 구분선 -->
             <div
-                style="border-top:1px solid rgba(255,255,255,0.05);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;">
-                <p style="color:#4B5563;font-size:0.78rem;">© 2025 오너프랜즈 (Owner Friends). All rights reserved.</p>
-                <p style="color:#4B5563;font-size:0.78rem;">혼자서도 본사처럼</p>
+                style="border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;">
+                <p style="color:#4B5563;font-size:0.8rem;margin:0;">© 2025 오너프랜즈 (Owner Friends). All rights reserved.
+                </p>
+                <p style="color:#4B5563;font-size:0.8rem;margin:0;">혼자서도 본사처럼 — 제2의 할맥을 함께 만들겠습니다.</p>
             </div>
         </div>
     </footer>
